@@ -5,7 +5,7 @@ const MainComponent: React.FC = () => {
   const [activeTab, setActiveTab] = useState('itinerary');
 
   return (
-    <div className="container mx-auto p-6 bg-customPurple border-4 border-customPink rounded-lg shadow-xl max-w-screen-md">
+    <div className="container mx-auto p-6 bg-white bg-opacity-90 border-4 border-customPink rounded-lg shadow-xl max-w-screen-md">
       <header className="text-center mb-6">
         <h1 className="text-4xl font-bold mb-4 text-customLightPink">Trip Genius✨</h1>
         <div className="flex justify-center gap-4">
@@ -35,6 +35,64 @@ const MainComponent: React.FC = () => {
           <div>
             <h2 className="text-2xl font-bold text-customLightPink">Itinerary</h2>
             <p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
+			<p className="text-customLightPink">This is the itinerary content.</p>
           </div>
         )}
         {activeTab === 'info' && (

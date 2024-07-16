@@ -22,7 +22,7 @@ const Banner = () => {
             </section>
 
             <section className="relative mt-5 md:mt-0">
-                <Image src="/img/chinese_family_wushuiying _副本2.png" width={500} height={500} alt="heroimg" className="dangling-picture" loading="eager" />
+                <Image src="/img/chinese_family_wushuiying _副本2.png" width={700} height={700} alt="heroimg" className="dangling-picture" loading="eager" />
             </section>
         </main>
      );

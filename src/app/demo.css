@@ -1,0 +1,55 @@
+/* App.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif; /* 可选：更改字体以匹配设计风格 */
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 确保根元素高度至少为视口高度 */
+}
+
+.background-container {
+    background-image: url('/bg-demo/bg-demo4.jpg'); /* 确保正确引用背景图片路径 */
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.main-content {
+    flex-grow: 1; /* 使主内容区域扩展以填充剩余空间 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8); /* 背景白色且有透明感 */
+    color: black; /* 字体颜色为黑色 */
+    border: 4px solid #5a1a5f; /* 使用自定义颜色 */
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px; /* 确保内容与页面边界有一定间距 */
+}
+
+.footer {
+    background-color: rgba(255, 255, 255, 0.8); /* 背景白色且有透明感 */
+    color: black; /* 字体颜色为黑色 */
+    text-align: center;
+    padding: 10px 0;
+    border-top: 4px solid #5a1a5f; /* 使用自定义颜色 */
+}
+
+.footer a {
+    color: black; /* 链接颜色为黑色 */
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline; /* 鼠标悬停时下划线效果 */
+}
