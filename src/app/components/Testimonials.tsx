@@ -14,24 +14,24 @@ const Testimonials = () => {
 
     const testimonialsData: TestimonialData[] = [
         {
-            img: "/img/user1.png",
-            review: "“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”",
-            name: "Mike taylor",
-            company: "Lahore, Pakistan",
+            img: "/img/boy.jpg",
+            review: "“这款旅游规划软件真是出行必备！精准推荐的景点各具特色，路线规划合理，让我轻松享受每一站的精彩。强烈推荐给爱游山玩水的朋友们！”",
+            name: "张伟",
+            company: "美景尽收眼底",
 
         },
         {
-            img: "/img/user2.png",
-            review: "“This service is a game-changer! I was skeptical at first, but after trying it, I'm hooked. The results were instant, and I couldn't be happier.”",
-            name: "Chris Thomas",
-            company: "CEO of Red Button",
+            img: "/img/girl.jpg",
+            review: "“自从用了这个软件，旅行安排变得前所未有的简单。从景点推荐到路径规划，一站式服务，让我的旅程既丰富又无忧。真心觉得是个旅行好帮手！”",
+            name: "韩梅梅",
+            company: "省心又省力",
 
         },
         {
-            img: "/img/user3.png",
-            review: "“The customer support is also top-notch. They were quick to respond and helped me with any questions I had.”",
-            name: "John Smith",
-            company: "CEO of Energize Your Life Co",
+            img: "/img/head.jpg",
+            review: "“爱死了这软件的定制功能，仿佛有位私人导游。根据我的兴趣推荐的行程，每一个细节都恰到好处。不仅深度体验了当地文化，还发现了不少隐藏版美景，超赞！”",
+            name: "李平",
+            company: "个性化定制，体验升级",
 
         }
     ]
@@ -78,7 +78,7 @@ const Testimonials = () => {
             <section className="flex items-center justify-center gap-4 mt-10 md:mt-0 special-font">
                 <div className="relative">
                     <div className="p-4 rounded-xl shadow-lg bg-white w-[85%] md:w-[70%] grid gap-3 relative z-10 " data-aos="fade-down">
-                        <Image src={testimonialsData[currentIndex].img} width={50} height={50} alt="img" className="absolute top-[-30px] left-[100px] md:left-[-20px]"/>
+                        <Image src={testimonialsData[currentIndex].img} width={30} height={30} alt="img" className="absolute top-[-30px] left-[100px] md:left-[-20px]"/>
                         <p className="text-[13px] md:text-[15px] text-litegrey">{testimonialsData[currentIndex].review}</p>
 
                         <h1 className="text-[16px] md:text-[18px] text-litegrey font-semibold">{testimonialsData[currentIndex].name}</h1>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
 
-const Banner = () => {
+const Hero = () => {
     return ( 
         <main className="relative w-full flex flex-col md:flex-row items-center justify-between py-[80px] md:py-[100px] px-[5%] bg bg-right-top bg-no-repeat bg-contain">
             <section className="w-full md:w-[50%] flex flex-col items-center md:items-start justify-center md:justify-start gap-3">
@@ -22,10 +22,10 @@ const Banner = () => {
             </section>
 
             <section className="relative mt-5 md:mt-0">
-                <Image src="/img/chinese_family_wushuiying _副本2.png" width={500} height={500} alt="heroimg" className="dangling-picture" loading="eager" />
+                <Image src="/img/chinese_family_wushuiying _副本2.png" width={800} height={500} alt="heroimg" className="dangling-picture" loading="eager" />
             </section>
         </main>
      );
 }
  
-export default Banner;
+export default Hero;

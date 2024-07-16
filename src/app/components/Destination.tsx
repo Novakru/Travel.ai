@@ -12,22 +12,22 @@ const Destination = () => {
 
     const destination: Destination[] = [
         {
-            img: "/img/rome.png",
-            location: "Rome, Italy",
+            img: "/img/tiantan.jpg",
+            location: "颐和园，北京",
             amount: "$5.42k",
             days: "10 Days Trip",
             sideImg: ""
         },
         {
-            img: "/img/london.jpg",
-            location: "London, UK",
+            img: "/img/dongfangmingzhu (2).jpg",
+            location: "东方明珠,上海",
             amount: "$4.2k",
             days: "12 Days Trip",
             sideImg: ""
         },
         {
-            img: "/img/europe.png",
-            location: "Full Europe",
+            img: "/img/zhonglou.jpg",
+            location: "钟楼，西安",
             amount: "$15k",
             days: "28 Days Trip",
             sideImg: "/img/Decore2.png"
@@ -36,8 +36,8 @@ const Destination = () => {
     return (
         <main className="relative w-full py-[80px] px-[5%] grid grid-cols-1 gap-6" id="destination">
             <section className="flex flex-col items-center text-center gap-4">
-                <p className="text-[18px] text-litegrey font-bold special-font" data-aos="fade-down">Top Selling</p>
-                <h1 className="text-3xl md:text-5xl font-bold" data-aos="fade-down">Top Destinations</h1>
+                <p className="text-[18px] text-litegrey font-bold special-font" data-aos="fade-down">Top Destinations</p>
+                <h1 className="text-3xl md:text-5xl font-bold" data-aos="fade-down">热门旅游城市</h1>
             </section>
 
             <section className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 lg:gap-8 xl:gap-16 special-font">

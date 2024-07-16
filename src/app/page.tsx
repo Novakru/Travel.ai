@@ -18,7 +18,7 @@ export default function Home() {
       <Destination />
       <Book />
       <Testimonials />
-      <Sponsors />
+      {/* <Sponsors /> */}
       <Subscribe />
       <Footer />
     </main>
