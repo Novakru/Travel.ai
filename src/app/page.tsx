@@ -1,6 +1,6 @@
 "use client"
 import Header from "./components/Header"
-import Hero from "./components/Hero"
+import Banner from "./components/Banner"
 import Category from "./components/Category"
 import Destination from "./components/Destination"
 import Book from "./components/Book"
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
       <Header />
-      <Hero />
+      <Banner />
       <Category />
       <Destination />
       <Book />

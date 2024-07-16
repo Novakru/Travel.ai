@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
 
-const Hero = () => {
+const Banner = () => {
     return ( 
         <main className="relative w-full flex flex-col md:flex-row items-center justify-between py-[80px] md:py-[100px] px-[5%] bg bg-right-top bg-no-repeat bg-contain">
             <section className="w-full md:w-[50%] flex flex-col items-center md:items-start justify-center md:justify-start gap-3">
@@ -28,4 +28,4 @@ const Hero = () => {
      );
 }
  
-export default Hero;
+export default Banner;
