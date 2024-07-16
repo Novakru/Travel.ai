@@ -17,7 +17,7 @@ const Hero = () => {
 
                 <div className="flex items-center gap-4 special-font" data-aos="fade-up">
                 <a href="#category" className="py-3 px-5 rounded-md bg-orange text-white text-[14px] font-bold flex items-center">Find Out More</a>
-                <Link href="/" className="py-3 px-5 rounded-md text-litegrey text-[14px] font-bold flex items-center gap-2 hover:shadow-md hover:bg-hotpink transition delay-200" ><IoIosPlay className="text-2xl text-white p-[7px] rounded-full bg-green"/> Play Demo</Link>
+                <Link href="/demo" className="py-3 px-5 rounded-md text-litegrey text-[14px] font-bold flex items-center gap-2 hover:shadow-md hover:bg-hotpink transition delay-200" ><IoIosPlay className="text-2xl text-white p-[7px] rounded-full bg-green"/> Play Demo</Link>
                 </div>
             </section>
 

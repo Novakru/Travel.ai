@@ -18,6 +18,11 @@ const config: Config = {
         grey: '#DFD7F9',
         litedark: '#212832',
         offwhite: '#F5F5F5',
+		customPurple: '#6B21A8',
+        customPink: '#EC4899',
+        customLightPink: '#F9A8D4',
+        customOrange: '#F97316',
+        customBrown: '#78350F'
        }
     },
   },
