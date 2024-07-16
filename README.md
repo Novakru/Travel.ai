@@ -1,17 +1,14 @@
-## Getting Started
+## 项目启动
 
-First, run the development server:
+如果电脑上安装了nodejs,那么执行如下命令就可以热启动网页。
 
 ```bash
 npm install
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- 在自己电脑的端口可以渲染出网页的具体内容，可能是类似 [http://localhost:3000](http://localhost:3000) 这样的页面
+- You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## 代码提交注意事项
 1. 代码统一提交到dev分支，检查无误后，然后再merge到master分支  
