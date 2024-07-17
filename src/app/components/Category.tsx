@@ -9,32 +9,33 @@ const Category = () => {
 
       const category : Category[] = [
         {
-            img: "/img/weather.png",
-            header: "Calculated Weather",
-            subheader: "Built Wicket longer admire do barton vanity itself do in it",
+            img: "/img/settings.png",
+            header: "全面的信息与大量数据库",
+            subheader: "结合智谱大模型的API,在人文、地理、景点等各个方面拥有大量的背景知识信息，实现海量数据的利用",
+           
         },
         {
             img: "/img/flight.png",
-            header: "Best Flights",
-            subheader: "Engrossed listening. Park gate sell they west hard for the",
+            header: "定制化路线规划与贴心导航",
+            subheader: "结合高德API,提供最便捷的路线指引，更是能够精准地根据用户的偏好和需求，量身定制旅行路线",
         },
         {
             img: "/img/event.png",
-            header: "Best Flights",
-            subheader: "Barton vanity itself do in it. Prefered to men it engrossed listening",
+            header: "精准的景点推荐与行程安排",
+            subheader: "通过智能算法和用户的反馈，精准推荐最合适的当地景点和活动，包括热门的旅游胜地，以及隐藏的宝藏场所，确保每一天都充满活力和意义",
         },
         {
-            img: "/img/settings.png",
-            header: "Customization",
-            subheader: "We deliver outsourced aviation services for military customers",
+            img: "/img/weather.png",
+            header: "实时更新与个性结合",
+            subheader: "结合大模型的特点，结合实际情况，为用户调整行程提供及时建议",
         },
 
       ]
     return (
         <main className="relative w-full py-[100px] px-[5%] grid grid-cols-1 gap-4" id="category">
             <section className="flex flex-col items-center text-center gap-4">
-                <p className="text-[18px] text-litegrey font-bold special-font" data-aos="fade-down">CATEGORY</p>
-                <h1 className="text-3xl md:text-5xl font-bold" data-aos="fade-down">We Offer Best Services</h1>
+                <p className="text-[18px] text-litegrey font-bold special-font" data-aos="fade-down">We Offer Best Services</p>
+                <h1 className="text-3xl md:text-5xl font-bold" data-aos="fade-down">我们支持的服务</h1>
             </section>
 
             <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 place-items-center items-stretch gap-6 lg:gap-10 special-font">
