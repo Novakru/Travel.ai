@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../../styles/map.css';
 
-
 declare global {
   interface Window {
     AMap: any;
@@ -173,11 +172,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <div className="left">
-        <div id="mapContainer" className="mapContainer"></div>
-      </div>
-      <div className="right">
-        <div id="addressListContainer">
+      <div className="mapContainer" id="mapContainer"></div>
+      <div className="bottom">
+        <div className="left" id="addressListContainer">
           {addresses.map((dayObj, dayIndex) => (
             <div key={dayIndex} className="day-block">
               <h3>第{dayObj.day}天</h3>
@@ -205,7 +202,7 @@ const App: React.FC = () => {
             </div>
           ))}
         </div>
-        <div id="panel" className="panel"></div>
+        <div className="right" id="panel"></div>
       </div>
     </div>
   );

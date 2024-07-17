@@ -7,13 +7,15 @@ CORS(app)  # 允许所有来源的请求
 # 存储地址信息的二维数组（行表示第几天，列表示第几个地址）
 stored_addresses = [
     [],  # 第一天
-    []   # 第二天
+    [],  # 第二天
+    []   # 第三天
 ]
 
 # 预存储地址信息的二维数组（行表示第几天，列表示第几个地址）
 pre_stored_addresses = [
     [{'address': '北京'}, {'address': '天津'}],
-    [{'address': '上海'}, {'address': '杭州'}, {'address': '苏州'}]
+    [{'address': '上海'}, {'address': '杭州'}, {'address': '苏州'}],
+    [{'address': '广州'}, {'address': '深圳'}]
 ]
 
 @app.route('/saveAddress', methods=['POST'])

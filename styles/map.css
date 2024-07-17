@@ -1,27 +1,41 @@
 /* 页面布局 */
 .App {
     display: flex;
+    flex-direction: column;
+    width: 500px; /* 固定宽度 */
+    height: 900px; /* 固定高度 */
+    margin: 0 auto; /* 居中 */
+    border: 1px solid #ccc; /* 可选的边框样式 */
+    border-radius: 5px; /* 可选的圆角样式 */
 }
 
-/* 左侧地图区域 */
+/* 地图容器 */
+.mapContainer {
+    width: 100%;
+    height: 50%; /* 地图占据上半部分 */
+    border-bottom: 1px solid #ccc; /* 可选的边框样式 */
+}
+
+/* 下部区域 */
+.bottom {
+    display: flex;
+    height: 50%; /* 下半部分 */
+}
+
+/* 左侧地址列表区域 */
 .left {
     width: 70%; /* 根据需要调整宽度 */
-    height: 100vh; /* 全屏高度 */
-}
-
-/* 右侧控制区域 */
-.right {
-    width: 30%; /* 根据需要调整宽度 */
-    height: 100vh; /* 全屏高度 */
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* 地图容器的样式 */
-.mapContainer {
-    width: 100%;
+/* 右侧面板区域 */
+.right {
+    width: 30%; /* 根据需要调整宽度 */
     height: 100%;
-    border: 1px solid #ccc; /* 可选的边框样式 */
+    display: flex;
+    flex-direction: column;
 }
 
 /* 地址列表容器的样式 */
