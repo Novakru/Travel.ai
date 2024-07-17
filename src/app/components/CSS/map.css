@@ -32,20 +32,24 @@
     border: 1px solid #ccc; /* 可选的边框样式 */
     border-radius: 5px; /* 可选的圆角样式 */
     background-color: #f9f9f9; /* 可选的背景色 */
-    overflow-x: auto; /* 可选的水平滚动条 */
-    white-space: nowrap; /* 防止换行 */
+    overflow-y: auto; /* 可选的垂直滚动条 */
 }
 
-/* 地址列表标题的样式 */
-#addressListContainer h3 {
-    margin: 0 0 10px 0;
-    padding: 0;
-    font-size: 1.2em; /* 可选的字体大小 */
+/* 天块的样式 */
+.day-block {
+    margin-bottom: 20px; /* 可选的底部外边距 */
+}
+
+/* 地址行的样式 */
+.address-row {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* 水平滚动条 */
 }
 
 /* 地址块的样式 */
 .address-block {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     margin-right: 10px; /* 可选的右边距 */
 }

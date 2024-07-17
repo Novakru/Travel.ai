@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chatbot from '../components/Chatbot';
 import Image from 'next/image';
+// import Map from './Map';
 
 const MainComponent: React.FC = () => {
   const [activeTab, setActiveTab] = useState('itinerary');
@@ -47,6 +48,7 @@ const MainComponent: React.FC = () => {
         {activeTab === 'map' && (
           <div>
             <h2 className="text-2xl font-bold text-customLightPink">Map</h2>
+            {/* <Map /> */}
             <Image src="/path/to/map.png" width={500} height={300} alt="Map" className="rounded-md shadow-md mt-4" />
           </div>
         )}

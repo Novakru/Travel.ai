@@ -11,7 +11,7 @@ declare global {
 const App: React.FC = () => {
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
-  const [addresses, setAddresses] = useState<{ address: string; location: any }[]>([]);
+  const [addresses, setAddresses] = useState<{ day: number; addresses: { address: string; location: any }[] }[]>([]);
   const [drivingRoutes, setDrivingRoutes] = useState<{ [key: string]: any }>({});
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const App: React.FC = () => {
     };
 
     loadMapScripts();
+    clearStoredAddresses();
   }, []);
 
   useEffect(() => {
@@ -47,9 +48,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (addresses.length > 0) {
-      addresses.forEach((addressObj) => {
-        const { address, location } = addressObj;
-        addMarker(address, new window.AMap.LngLat(location.lng, location.lat));
+      addresses.forEach(dayObj => {
+        dayObj.addresses.forEach(addressObj => {
+          const { address, location } = addressObj;
+          addMarker(address, new window.AMap.LngLat(location.lng, location.lat));
+        });
       });
     }
   }, [addresses]);
@@ -63,27 +66,42 @@ const App: React.FC = () => {
     setMarkers((prevMarkers) => [...prevMarkers, marker]);
   };
 
+  const clearStoredAddresses = () => {
+    fetch('http://127.0.0.1:5000/clearAddresses', {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log('Stored addresses cleared');
+        }
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
   const fetchPreStoredAddresses = () => {
     fetch('http://127.0.0.1:5000/getPreStoredAddresses')
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          data.addresses.forEach((addressObj: { address: string }) => {
-            searchAddress(addressObj.address);
+          data.addresses.forEach((dayObj: { address: string }[], dayIndex: number) => {
+            dayObj.forEach((addressObj: { address: string }, addressIndex: number) => {
+              searchAddress(addressObj.address, dayIndex, addressIndex);
+            });
           });
         }
       })
       .catch((error) => console.error('Error:', error));
   };
 
-  const searchAddress = (address: string) => {
+  const searchAddress = (address: string, dayIndex: number, addressIndex: number) => {
     window.AMap.plugin('AMap.Geocoder', () => {
       const geocoder = new window.AMap.Geocoder({ city: '全国' });
 
       geocoder.getLocation(address, (status: string, result: any) => {
         if (status === 'complete' && result.geocodes.length) {
           const location = result.geocodes[0].location;
-          saveAddressToBackend(address, location);
+          saveAddressToBackend(address, location, dayIndex);
         } else {
           console.error('无法找到该地址:', address);
         }
@@ -91,13 +109,14 @@ const App: React.FC = () => {
     });
   };
 
-  const saveAddressToBackend = (address: string, location: any) => {
+  const saveAddressToBackend = (address: string, location: any, dayIndex: number) => {
     fetch('http://127.0.0.1:5000/saveAddress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         address,
         location: { lng: location.lng, lat: location.lat },
+        day_index: dayIndex
       }),
     })
       .then((response) => response.json())
@@ -112,7 +131,14 @@ const App: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          setAddresses(data.addresses);
+          const newAddresses = data.addresses.map((day: { address: string; location: { lng: number; lat: number } }[], dayIndex: number) => ({
+            day: dayIndex + 1,
+            addresses: day.map((addressObj: { address: string; location: { lng: number; lat: number } }) => ({
+              address: addressObj.address,
+              location: new window.AMap.LngLat(addressObj.location.lng, addressObj.location.lat)
+            }))
+          }));
+          setAddresses(newAddresses);
         }
       })
       .catch((error) => console.error('Error:', error));
@@ -151,28 +177,32 @@ const App: React.FC = () => {
       </div>
       <div className="right">
         <div id="addressListContainer">
-          <h3>已选择的地址</h3>
-          <div id="addressList">
-            {addresses.map((addressObj, index) => (
-              <div key={index} className="address-block">
-                <div className="address-item">{addressObj.address}</div>
-                {index < addresses.length - 1 && (
-                  <button
-                    className="route-button"
-                    onClick={() =>
-                      toggleRoute(
-                        new window.AMap.LngLat(addressObj.location.lng, addressObj.location.lat),
-                        new window.AMap.LngLat(addresses[index + 1].location.lng, addresses[index + 1].location.lat),
-                        `${index}-${index + 1}`
-                      )
-                    }
-                  >
-                    ⬤
-                  </button>
-                )}
+          {addresses.map((dayObj, dayIndex) => (
+            <div key={dayIndex} className="day-block">
+              <h3>第{dayObj.day}天</h3>
+              <div className="address-row">
+                {dayObj.addresses.map((addressObj, addressIndex) => (
+                  <div key={addressIndex} className="address-block">
+                    <div className="address-item">{addressObj.address}</div>
+                    {addressIndex < dayObj.addresses.length - 1 && (
+                      <button
+                        className="route-button"
+                        onClick={() =>
+                          toggleRoute(
+                            addressObj.location,
+                            dayObj.addresses[addressIndex + 1].location,
+                            `${dayIndex}-${addressIndex}-${addressIndex + 1}`
+                          )
+                        }
+                      >
+                        ⬤
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
         <div id="panel" className="panel"></div>
       </div>
