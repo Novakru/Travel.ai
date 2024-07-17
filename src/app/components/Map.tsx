@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../map.css';
 
 declare global {
@@ -11,11 +11,12 @@ declare global {
 const App: React.FC = () => {
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
-  const [addressLocations, setAddressLocations] = useState<{ address: string; location: any }[]>([]);
-  const [drivingRoutes, setDrivingRoutes] = useState<any[]>([]);
-  const [addresses, setAddresses] = useState<{ address: string }[]>([]);
+  const addressLocationsRef = useRef<{ address: string; location: any }[]>([]);
+  const drivingRoutesRef = useRef<any[]>([]);
+  const [addresses, setAddresses] = useState<{ address: string; location: any }[]>([]);
   const [addressInput, setAddressInput] = useState('');
 
+  // Initialize the map and load map scripts
   useEffect(() => {
     const initMap = () => {
       const mapInstance = new window.AMap.Map('mapContainer', {
@@ -43,12 +44,18 @@ const App: React.FC = () => {
     fetchAddresses();
   }, []);
 
+  // Handle right-click on the map to add a marker
   useEffect(() => {
     if (map) {
       map.on('rightclick', handleMapRightClick);
     }
   }, [map]);
 
+  useEffect(() => {
+    console.log('Address locations updated:', addressLocationsRef.current);
+  }, [addressLocationsRef.current]);
+
+  // Handle right-click to add a marker and get address using reverse geocoding
   const handleMapRightClick = (e: any) => {
     const { lnglat } = e;
     map.setCenter(lnglat);
@@ -67,6 +74,7 @@ const App: React.FC = () => {
     });
   };
 
+  // Add a marker to the map and save the address and location to the backend
   const addMarker = (address: string, location: any) => {
     const marker = new window.AMap.Marker({
       position: location,
@@ -74,7 +82,7 @@ const App: React.FC = () => {
       extData: { address },
     });
     setMarkers((prevMarkers) => [...prevMarkers, marker]);
-    setAddressLocations((prevLocations) => [...prevLocations, { address, location }]);
+    addressLocationsRef.current = [...addressLocationsRef.current, { address, location }];
 
     fetch('http://127.0.0.1:5000/saveAddress', {
       method: 'POST',
@@ -91,6 +99,7 @@ const App: React.FC = () => {
       .catch((error) => console.error('Error:', error));
   };
 
+  // Search for an address and add a marker to the map
   const searchAddress = () => {
     if (!addressInput.trim()) {
       alert('请输入一个有效的地址');
@@ -113,6 +122,7 @@ const App: React.FC = () => {
     });
   };
 
+  // Fetch addresses from the backend and update the address list and address locations
   const fetchAddresses = () => {
     fetch('http://127.0.0.1:5000/getAddresses')
       .then((response) => response.json())
@@ -120,13 +130,17 @@ const App: React.FC = () => {
         if (data.success) {
           setAddresses(data.addresses);
 
-          // 清空当前路线按钮
+          const updatedAddressLocations = data.addresses.map((addressObj: { address: string; location: { lng: number; lat: number } }) => ({
+            address: addressObj.address,
+            location: new window.AMap.LngLat(addressObj.location.lng, addressObj.location.lat),
+          }));
+          addressLocationsRef.current = updatedAddressLocations;
+
           const panel = document.getElementById('panel');
           if (panel) {
             panel.innerHTML = '';
           }
 
-          // 为每两个连续的地点生成路线按钮
           for (let i = 0; i < data.addresses.length - 1; i++) {
             const start = data.addresses[i].address;
             const end = data.addresses[i + 1].address;
@@ -134,9 +148,7 @@ const App: React.FC = () => {
             const routeButton = document.createElement('button');
             routeButton.textContent = `${start} -> ${end}`;
             routeButton.className = 'route-button';
-            routeButton.onclick = function () {
-              calculateRoute(i);
-            };
+            routeButton.onclick = () => calculateRoute(i);
 
             if (panel) {
               panel.appendChild(routeButton);
@@ -147,6 +159,7 @@ const App: React.FC = () => {
       .catch((error) => console.error('Error:', error));
   };
 
+  // Delete an address and its marker from the map and backend
   const deleteAddress = (address: string) => {
     fetch('http://127.0.0.1:5000/deleteAddress', {
       method: 'POST',
@@ -161,12 +174,14 @@ const App: React.FC = () => {
       .catch((error) => console.error('Error:', error));
   };
 
+  // Clear all addresses and markers
   const clearAddresses = () => {
     fetch('http://127.0.0.1:5000/clearAddresses', { method: 'POST' })
       .then((response) => response.json())
       .catch((error) => console.error('Error:', error));
   };
 
+  // Remove a marker from the map
   const removeMarker = (address: string) => {
     setMarkers((prevMarkers) => {
       const updatedMarkers = prevMarkers.filter((marker) => {
@@ -178,13 +193,17 @@ const App: React.FC = () => {
       });
       return updatedMarkers;
     });
-    setAddressLocations((prevLocations) => prevLocations.filter((loc) => loc.address !== address));
+    addressLocationsRef.current = addressLocationsRef.current.filter((loc) => loc.address !== address);
   };
 
+  // Calculate and display the driving route between two addresses
   const calculateRoute = (index: number) => {
-    if (index >= addressLocations.length - 1) {
+    console.log(`计算路线 ${index + 1}...`);
+    if (index >= addressLocationsRef.current.length - 1) {
+      console.log(`无法计算路线 ${index + 1}，因为 ${index} >= ${addressLocationsRef.current.length - 1}`);
       return;
     }
+    console.log(`addressLocations: ${JSON.stringify(addressLocationsRef.current)}`);
 
     window.AMap.plugin('AMap.Driving', () => {
       const driving = new window.AMap.Driving({
@@ -192,16 +211,16 @@ const App: React.FC = () => {
         panel: 'panel',
       });
 
-      const start = addressLocations[index].location;
-      const end = addressLocations[index + 1].location;
+      const start = addressLocationsRef.current[index].location;
+      console.log(`start: ${start}`);
+      const end = addressLocationsRef.current[index + 1].location;
+      console.log(`end: ${end}`);
 
       console.log(`Calculating route from ${start} to ${end}`);
       driving.search(start, end, (status: string, result: any) => {
         if (status === 'complete') {
           console.log(`路线 ${index + 1} 计算成功`);
-          const newDrivingRoutes = [...drivingRoutes];
-          newDrivingRoutes[index] = driving;
-          setDrivingRoutes(newDrivingRoutes);
+          drivingRoutesRef.current[index] = driving;
         } else {
           console.error(`路线 ${index + 1} 计算失败：` + result);
         }
@@ -209,13 +228,13 @@ const App: React.FC = () => {
     });
   };
 
+  // Clear all driving routes from the map
   const clearRoutes = () => {
-    drivingRoutes.forEach((driving) => {
+    drivingRoutesRef.current.forEach((driving) => {
       if (driving) driving.clear();
     });
+    drivingRoutesRef.current = [];
     console.log(`全部路线已清除`);
-    setDrivingRoutes([]);
-    fetchAddresses(); // 保留面板内容，以便用户可以再次点击按钮查看路线
   };
 
   return (
@@ -243,9 +262,9 @@ const App: React.FC = () => {
         </ul>
       </div>
       <div id="panel" className="panel"></div>
-      <button id="clearRoutesButton" onClick={clearRoutes} className="clearRoutesButton">
+      {/* <button id="clearRoutesButton" onClick={clearRoutes} className="clearRoutesButton">
         清除所有路线
-      </button>
+      </button> */}
     </div>
   );
 };
