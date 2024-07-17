@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-image: url('/img/login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+h2#formTitle {
+  font-size: 28px; 
+  font-weight: bold;
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 1px; /* Add some space between letters */
+}
+
+.container {
+  width: 370px;
+  max-width: 400px;
+  padding: 40px;
+  /* background-image: url('4c4dd2ba7b4a2d9e2db1999ff989469a(1).jpeg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.formTitle{
+  font-size: 16px;
+  font-weight: bold;
+}
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+}
+.form-group input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+.form-group input:focus {
+  border-color: #007bff;
+}
+.button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.button:hover {
+  background-color: #0056b3;
+}
+.toggle-button {
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: color 0.3s;
+}
+.toggle-button:hover {
+  color: #0056b3;
+}
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 68%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+}
