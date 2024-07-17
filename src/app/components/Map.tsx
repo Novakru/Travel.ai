@@ -12,7 +12,7 @@ const App: React.FC = () => {
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
   const addressLocationsRef = useRef<{ address: string; location: any }[]>([]);
-  const drivingRoutesRef = useRef<any[]>([]);
+  const [drivingRoutes, setDrivingRoutes] = useState<any[]>([]);
   const [addresses, setAddresses] = useState<{ address: string; location: any }[]>([]);
   const [addressInput, setAddressInput] = useState('');
 
@@ -220,7 +220,9 @@ const App: React.FC = () => {
       driving.search(start, end, (status: string, result: any) => {
         if (status === 'complete') {
           console.log(`路线 ${index + 1} 计算成功`);
-          drivingRoutesRef.current[index] = driving;
+          const newDrivingRoutes = [...drivingRoutes];
+          newDrivingRoutes[index] = driving;
+          setDrivingRoutes(newDrivingRoutes);
         } else {
           console.error(`路线 ${index + 1} 计算失败：` + result);
         }
@@ -230,11 +232,12 @@ const App: React.FC = () => {
 
   // Clear all driving routes from the map
   const clearRoutes = () => {
-    drivingRoutesRef.current.forEach((driving) => {
+    drivingRoutes.forEach((driving) => {
       if (driving) driving.clear();
     });
-    drivingRoutesRef.current = [];
     console.log(`全部路线已清除`);
+    setDrivingRoutes([]);
+    fetchAddresses();
   };
 
   return (
