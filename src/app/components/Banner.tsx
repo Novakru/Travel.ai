@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
@@ -20,7 +20,7 @@ const Banner = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageChange = (index) => {
+  const handleImageChange = (index: SetStateAction<number>) => {
     setCurrentImageIndex(index);
   };
 
