@@ -16,12 +16,12 @@ export default function Home() {
     <main>
       <Header />
       <Banner />
-      <CallToActionL/>
-      <CallToActionR/>
       <Category />
+	  <CallToActionL/>
+      <CallToActionR/>
       <Destination />
       <Book />
-      <Testimonials />
+      {/* <Testimonials /> */}
       {/*<Sponsors />*/}
       <Subscribe />
       <Footer />

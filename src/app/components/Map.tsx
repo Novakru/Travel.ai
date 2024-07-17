@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './CSS/map.css';
+import '../../../styles/map.css';
+
 
 declare global {
   interface Window {

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Volkhov } from 'next/font/google'
-import './globals.css'
+import '../../styles/globals.css'
 import { AOSInit } from './components/AOS'
 
 const raleway = Volkhov({

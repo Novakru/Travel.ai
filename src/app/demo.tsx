@@ -1,7 +1,7 @@
 import React from 'react';
 import MainComponent from "./components/MainComponent";
 import FooterComponent from "./components/FooterComponent";
-import './demo.css'; 
+import '../../styles/demo.css'; 
 
 const Demo: React.FC = () => {
     return (
