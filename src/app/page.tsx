@@ -22,7 +22,7 @@ export default function Home() {
       {/*<Sponsors />*/}
       <Subscribe />
       <Footer />
-      <Map />
+      {/* <Map /> */}
     </main>
   )
 }

@@ -262,9 +262,9 @@ const App: React.FC = () => {
         </ul>
       </div>
       <div id="panel" className="panel"></div>
-      {/* <button id="clearRoutesButton" onClick={clearRoutes} className="clearRoutesButton">
+      <button id="clearRoutesButton" onClick={clearRoutes} className="clearRoutesButton">
         清除所有路线
-      </button> */}
+      </button>
     </div>
   );
 };
