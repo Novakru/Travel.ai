@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
@@ -7,7 +7,6 @@ const images = [
   "/img/chinese_family_wushuiying _副本2.png",
   "/img/chinese_family2.png",
   "/img/chinese_family04.png",
-
 ];
 
 const Banner = () => {
@@ -20,7 +19,7 @@ const Banner = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageChange = (index: SetStateAction<number>) => {
+  const handleImageChange = (index) => {
     setCurrentImageIndex(index);
   };
 
@@ -34,11 +33,11 @@ const Banner = () => {
             <Image src="/img/line-decore.png" width={100} height={100} alt="line-decore" className="absolute bottom-2 right-0 w-full" loading="eager" />
           </span>
           独家定制旅行</h1>
-        <p className="text-[14px] text-litegrey font-bold w-full lg:w-[80%] xl:w-[65%] text-center md:text-left special-font" data-aos="fade-up">结合智谱大模型API与高德API结合的旅游定制服务</p>
+        <p className="text-[34px] text-litegrey font-bold w-full lg:w-[80%] xl:w-[65%] text-center md:text-left special-font" data-aos="fade-up">结合智谱大模型与高德地图API的专属旅游定制服务</p>
 
         <div className="flex items-center gap-4 special-font" data-aos="fade-up">
-          <a href="#category" className="py-3 px-5 rounded-md bg-orange text-white text-[14px] font-bold flex items-center">了解详情</a>
-          <Link href="/demo" className="py-3 px-5 rounded-md text-litegrey text-[14px] font-bold flex items-center gap-2 hover:shadow-md hover:bg-hotpink transition delay-200"><IoIosPlay className="text-2xl text-white p-[7px] rounded-full bg-green" /> Play Demo</Link>
+          <a href="#category" className="py-4 px-6 rounded-md bg-orange text-white text-[16px] font-bold flex items-center hover:shadow-md hover:bg-hotpink transition delay-200">了解详情</a>
+          <Link href="/demo" className="py-4 px-6 rounded-md text-litegrey text-[16px] font-bold flex items-center gap-2 hover:shadow-md hover:bg-hotpink transition delay-200"><IoIosPlay className="text-2xl text-white p-[7px] rounded-full bg-green" /> Play Demo</Link>
         </div>
       </section>
 

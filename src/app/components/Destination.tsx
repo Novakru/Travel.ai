@@ -60,7 +60,11 @@ const Destination = () => {
     }, [destinations]);
 
     return (
-        <main className="relative w-full py-[80px] px-[5%] grid grid-cols-1 gap-6" id="destination">
+        <main 
+            className="relative w-full py-[80px] px-[5%] grid grid-cols-1 gap-6 bg-cover bg-center" 
+            style={{ backgroundImage: "url('/img/background.png')" }}
+            id="destination"
+        >
             <section className="flex flex-col items-center text-center gap-4">
                 <p className="text-[18px] text-litegrey font-bold special-font" data-aos="fade-down">Top Destinations</p>
                 <h1 className="text-3xl md:text-5xl font-bold" data-aos="fade-down">热门旅游城市</h1>
