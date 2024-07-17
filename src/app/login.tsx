@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginForm.css'; 
+import '../../styles/loginForm.css'; 
 
 const LoginForm: React.FC = () => {
 
