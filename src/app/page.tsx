@@ -8,6 +8,7 @@ import Testimonials from "./components/Testimonials"
 import Sponsors from "./components/Sponsors"
 import Subscribe from "./components/Subscribe"
 import Footer from "./components/Footer"
+import  Map from "./components/Map"
 
 export default function Home() {
   return (
@@ -18,9 +19,10 @@ export default function Home() {
       <Destination />
       <Book />
       <Testimonials />
-      {/* <Sponsors /> */}
+      {/*<Sponsors />*/}
       <Subscribe />
       <Footer />
+      <Map />
     </main>
   )
 }

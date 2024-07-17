@@ -1,0 +1,45 @@
+#mapContainer {
+    width: 600px; /* 设置地图容器的宽度 */
+    height: 400px; /* 设置地图容器的高度 */
+    border: 1px solid #ccc; /* 添加边框 */
+    margin: 20px auto; /* 居中显示 */
+}
+#searchContainer {
+    text-align: center;
+    margin: 20px;
+}
+#addressListContainer {
+    width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.address-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.route-button {
+    display: block;
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#panel {
+    width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#clearRoutesButton {
+    display: block;
+    margin: 10px auto;
+    padding: 5px 10px;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
