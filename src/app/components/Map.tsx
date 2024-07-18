@@ -13,6 +13,7 @@ const App: React.FC = () => {
   const [markers, setMarkers] = useState<any[]>([]);
   const [addresses, setAddresses] = useState<{ day: number; addresses: { address: string; location: any }[] }[]>([]);
   const [drivingRoutes, setDrivingRoutes] = useState<{ [key: string]: any }>({});
+  const [geocodeInfo, setGeocodeInfo] = useState<string>('全国');
 
   useEffect(() => {
     const initMap = () => {
@@ -38,6 +39,7 @@ const App: React.FC = () => {
 
     loadMapScripts();
     clearStoredAddresses();
+    fetchGeocodeInfo();
   }, []);
 
   useEffect(() => {
@@ -79,6 +81,18 @@ const App: React.FC = () => {
       .catch((error) => console.error('Error:', error));
   };
 
+  const fetchGeocodeInfo = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/getGeocodeInfo');
+      const data = await response.json();
+      if (data.success) {
+        setGeocodeInfo(data.geocode_info.region);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const fetchPreStoredAddresses = () => {
     fetch('http://127.0.0.1:5000/getPreStoredAddresses')
       .then((response) => response.json())
@@ -86,7 +100,9 @@ const App: React.FC = () => {
         if (data.success) {
           data.addresses.forEach((dayObj: { address: string }[], dayIndex: number) => {
             dayObj.forEach((addressObj: { address: string }, addressIndex: number) => {
+              console.log(`Day ${dayIndex + 1} address ${addressIndex + 1} ${addressObj.address} to be searched`);
               searchAddress(addressObj.address, dayIndex, addressIndex);
+              console.log(`Day ${dayIndex + 1} address ${addressIndex + 1} ${addressObj.address} searched`);
             });
           });
         }
@@ -96,12 +112,18 @@ const App: React.FC = () => {
 
   const searchAddress = (address: string, dayIndex: number, addressIndex: number) => {
     window.AMap.plugin('AMap.Geocoder', () => {
-      const geocoder = new window.AMap.Geocoder({ city: '全国' });
+      const geocoder = new window.AMap.Geocoder({ city: geocodeInfo });
 
-      geocoder.getLocation(address, (status: string, result: any) => {
+      geocoder.getLocation(address, async (status: string, result: any) => {
         if (status === 'complete' && result.geocodes.length) {
           const location = result.geocodes[0].location;
-          saveAddressToBackend(address, location, dayIndex);
+          console.log(`Day ${dayIndex + 1} address ${addressIndex + 1} ${address} found at ${location.lng}, ${location.lat}`);
+          try {
+            await saveAddressToBackend(address, location, dayIndex, addressIndex);
+            console.log(`Day ${dayIndex + 1} address ${addressIndex + 1} ${address} saved`);
+          } catch (error) {
+            console.error('Error saving address:', error);
+          }
         } else {
           console.error('无法找到该地址:', address);
         }
@@ -109,39 +131,48 @@ const App: React.FC = () => {
     });
   };
 
-  const saveAddressToBackend = (address: string, location: any, dayIndex: number) => {
-    fetch('http://127.0.0.1:5000/saveAddress', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        address,
-        location: { lng: location.lng, lat: location.lat },
-        day_index: dayIndex
-      }),
-    })
-      .then((response) => response.json())
-      .then(() => {
+  const saveAddressToBackend = async (address: string, location: any, dayIndex: number, addressIndex: number) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/saveAddress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          address,
+          location: { lng: location.lng, lat: location.lat },
+          day_index: dayIndex,
+          address_index: addressIndex
+        }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        console.log(`Address ${address} saved`);
         fetchAddresses();
-      })
-      .catch((error) => console.error('Error:', error));
+        console.log('Addresses fetched');
+      } else {
+        throw new Error('Failed to save address');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
-  const fetchAddresses = () => {
-    fetch('http://127.0.0.1:5000/getAddresses')
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          const newAddresses = data.addresses.map((day: { address: string; location: { lng: number; lat: number } }[], dayIndex: number) => ({
-            day: dayIndex + 1,
-            addresses: day.map((addressObj: { address: string; location: { lng: number; lat: number } }) => ({
-              address: addressObj.address,
-              location: new window.AMap.LngLat(addressObj.location.lng, addressObj.location.lat)
-            }))
-          }));
-          setAddresses(newAddresses);
-        }
-      })
-      .catch((error) => console.error('Error:', error));
+  const fetchAddresses = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/getAddresses');
+      const data = await response.json();
+      if (data.success) {
+        const newAddresses = data.addresses.map((day: { address: string; location: { lng: number; lat: number } }[], dayIndex: number) => ({
+          day: dayIndex + 1,
+          addresses: day.map((addressObj: { address: string; location: { lng: number; lat: number } }) => ({
+            address: addressObj.address,
+            location: new window.AMap.LngLat(addressObj.location.lng, addressObj.location.lat)
+          }))
+        }));
+        setAddresses(newAddresses);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const toggleRoute = (start: any, end: any, routeKey: string) => {

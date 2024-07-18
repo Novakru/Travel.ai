@@ -8,7 +8,7 @@ import Book from "./components/Book"
 import Sponsors from "./components/Sponsors"
 import Subscribe from "./components/Subscribe"
 import Footer from "./components/Footer"
-// import Map from "./components/Map"
+import Map from "./components/Map"
 import CallToActionL from "./components/CallToActionL"
 import CallToActionR from "./components/CallToActionR"
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       <Header />
       <Banner />
       <Category />
-	  <CallToActionL/>
+	    <CallToActionL/>
       <CallToActionR/>
       <Destination />
       <Book />

@@ -2,7 +2,7 @@
 .App {
     display: flex;
     flex-direction: column;
-    width: 500px; /* 固定宽度 */
+    width: 700px; /* 固定宽度 */
     height: 900px; /* 固定高度 */
     margin: 0 auto; /* 居中 */
     border: 1px solid #ccc; /* 可选的边框样式 */
