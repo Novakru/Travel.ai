@@ -1,0 +1,41 @@
+.chatui-container {
+	display: flex;
+	flex-direction: column;
+	height: 600px; /* 你可以根据需要调整高度 */
+	width: 800px;
+	border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+	border-radius: 15px; /* 增加弧度 */
+	overflow: hidden; /* 隐藏溢出内容 */
+  }
+  
+  .chatui-content {
+	flex: 1;
+	overflow-y: auto;
+  }
+  
+  .chatui-footer {
+	flex: 0 1 auto;
+	padding: 10px;
+	background-color: #f8f8f8;
+  }
+  
+  .bubble-left {
+	max-width: 60%;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #fff;
+	align-self: flex-start;
+	text-align: left;
+  }
+  
+  .bubble-right {
+	max-width: 60%;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #dcf8c6;
+	align-self: flex-end;
+	text-align: right;
+  }
+  

@@ -11,6 +11,10 @@ import Footer from "./components/Footer"
 import Map from "./components/Map"
 import CallToActionL from "./components/CallToActionL"
 import CallToActionR from "./components/CallToActionR"
+import dynamic from "next/dynamic";
+const Chatui = dynamic(() => import('./components/Chatui'), { ssr: false });
+
+
 export default function Home() {
   return (
     <main>
