@@ -11,13 +11,15 @@ const Chatbot: React.FC = () => {
     setError(''); // Clear previous errors
 
     const data = { location };
-    fetch('http://127.0.0.1:8000/recommend-travel-plan', {
+    console.log("Sending request with data:", data);
+    fetch('http://127.0.0.1:5000/langserve/recommend-travel-plan', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
     }).then(response => {
+      console.log("Received response:", response);
       if (response.ok) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
@@ -46,7 +48,7 @@ const Chatbot: React.FC = () => {
 
         read();
       } else {
-        console.error('Network response was not ok.');
+        console.error('Network response was not ok.', response.statusText);
         setError('Sorry, there was an error fetching the travel plan.');
       }
     }).catch(error => {

@@ -40,7 +40,7 @@ const Chatui = () => {
     console.log("window.innerHeight", window.innerHeight);
   }, []);
 
-  function handleSend(type, val) {
+  async function handleSend(type, val) {
     if (type === "text" && val.trim()) {
       appendMsg({
         type: "text",
@@ -51,14 +51,42 @@ const Chatui = () => {
 
       setTyping(true);
 
-      setTimeout(() => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/langserve/recommend-travel-plan', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ location: val }),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          appendMsg({
+            type: "text",
+            content: { text: result.response },
+            position: "left",
+            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          });
+        } else {
+          appendMsg({
+            type: "text",
+            content: { text: '对不起，出现了一些错误，请稍后再试。' },
+            position: "left",
+            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          });
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
         appendMsg({
           type: "text",
-          content: { text: "亲，您遇到什么问题啦？请简要描述您的问题~" },
+          content: { text: '对不起，出现了一些错误，请稍后再试。' },
           position: "left",
           user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
         });
-      }, 1000);
+      } finally {
+        setTyping(false);
+      }
     }
   }
 
