@@ -44,7 +44,7 @@ const Header = () => {
     return ( 
         <nav className={`py-5 px-[5%] top-0 w-full fixed flex items-center justify-between z-20 ${headerBackground} special-font`}>
             <Link href="/" className="w-[80px]">
-                <Image src="/img/logo1.png" width={50} height={50} alt="logo" className="w-full" loading="eager"/>
+                <Image src="/img/hero-logo.png" width={50} height={50} alt="logo" className="w-full" loading="eager"/>
                
             </Link>
 

@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const images = [
-  "/img/chinese_family_wushuiying _副本2.png",
-  "/img/chinese_family2.png",
-  "/img/chinese_family04.png",
+  "/img/travelling01.png",
+  "/img/travelling02.png",
+  "/img/travelling03.png",
+  "/img/travelling04.png",
+  "/img/travelling05.png",
+  "/img/travelling06.png",
 ];
 
 const Banner = () => {
@@ -15,12 +19,20 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // 自动切换时间间隔，单位为毫秒
+    }, 3000); // Automatic slide interval in milliseconds
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageChange = (index) => {
+  const handleImageChange = (index: number) => {
     setCurrentImageIndex(index);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
+
+  const handleNextClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   return (
@@ -42,7 +54,15 @@ const Banner = () => {
       </section>
 
       <section className="relative mt-5 md:mt-0">
-        <Image src={images[currentImageIndex]} width={800} height={800} alt="heroimg" className="dangling-picture transition-opacity duration-1000" loading="eager" />
+        <Image src={images[currentImageIndex]} width={800} height={700} alt="heroimg" className="dangling-picture transition-opacity duration-1000" loading="eager" />
+        <div className="absolute inset-0 flex items-center justify-between">
+          <button onClick={handlePrevClick} className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+            <IoIosArrowBack className="text-2xl" />
+          </button>
+          <button onClick={handleNextClick} className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+            <IoIosArrowForward className="text-2xl" />
+          </button>
+        </div>
         <div className="absolute bottom-0 left-0 flex gap-2 p-2">
           {images.map((image, index) => (
             <button

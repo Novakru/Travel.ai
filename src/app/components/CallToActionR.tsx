@@ -28,7 +28,7 @@ const CallToActionR = ({
             <div className="md:mt-0 md:w-1/2">
                 <video 
                     src={mediaSrc}  
-                    width={520}
+                    width={720}
                     height={310}
                     className="rounded-3xl"
                     controls
