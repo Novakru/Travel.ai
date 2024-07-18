@@ -69,7 +69,7 @@ const App: React.FC = () => {
   };
 
   const clearStoredAddresses = () => {
-    fetch('http://127.0.0.1:5000/clearAddresses', {
+    fetch('http://127.0.0.1:5000/map/clearAddresses', {
       method: 'POST',
     })
       .then((response) => response.json())
@@ -83,7 +83,7 @@ const App: React.FC = () => {
 
   const fetchGeocodeInfo = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/getGeocodeInfo');
+      const response = await fetch('http://127.0.0.1:5000/map/getGeocodeInfo');
       const data = await response.json();
       if (data.success) {
         setGeocodeInfo(data.geocode_info.region);
@@ -94,7 +94,7 @@ const App: React.FC = () => {
   };
 
   const fetchPreStoredAddresses = () => {
-    fetch('http://127.0.0.1:5000/getPreStoredAddresses')
+    fetch('http://127.0.0.1:5000/map/getPreStoredAddresses')
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -133,7 +133,7 @@ const App: React.FC = () => {
 
   const saveAddressToBackend = async (address: string, location: any, dayIndex: number, addressIndex: number) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/saveAddress', {
+      const response = await fetch('http://127.0.0.1:5000/map/saveAddress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -158,7 +158,7 @@ const App: React.FC = () => {
 
   const fetchAddresses = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/getAddresses');
+      const response = await fetch('http://127.0.0.1:5000/map/getAddresses');
       const data = await response.json();
       if (data.success) {
         const newAddresses = data.addresses.map((day: { address: string; location: { lng: number; lat: number } }[], dayIndex: number) => ({

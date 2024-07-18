@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)  # 允许所有来源的请求
+map_bp = Blueprint('map', __name__)
+CORS(map_bp)  # 允许所有来源的请求
 
 # 存储地址信息的二维数组（行表示第几天，列表示第几个地址）
 stored_addresses = []
@@ -17,19 +17,19 @@ pre_stored_addresses = [
 # 预设地理编码信息
 geocode_info = {'region': '北京'}
 
-@app.route('/getGeocodeInfo', methods=['GET'])
+@map_bp.route('/getGeocodeInfo', methods=['GET'])
 def get_geocode_info():
     return jsonify({'success': True, 'geocode_info': geocode_info})
 
-@app.route('/getPreStoredAddresses', methods=['GET'])
+@map_bp.route('/getPreStoredAddresses', methods=['GET'])
 def get_pre_stored_addresses():
     return jsonify({'success': True, 'addresses': pre_stored_addresses})
 
-@app.route('/getAddresses', methods=['GET'])
+@map_bp.route('/getAddresses', methods=['GET'])
 def get_addresses():
     return jsonify({'success': True, 'addresses': stored_addresses})
 
-@app.route('/saveAddress', methods=['POST'])
+@map_bp.route('/saveAddress', methods=['POST'])
 def save_address():
     data = request.get_json()
     address = data.get('address')
@@ -45,11 +45,11 @@ def save_address():
     stored_addresses[day_index][address_index] = {'address': address, 'location': location}
     return jsonify({'success': True, 'message': 'Address received and stored'})
 
-@app.route('/clearAddresses', methods=['POST'])
+@map_bp.route('/clearAddresses', methods=['POST'])
 def clear_addresses():
     global stored_addresses
     stored_addresses = [[None for _ in range(len(day))] for day in pre_stored_addresses]
     return jsonify({'success': True, 'message': 'Addresses cleared'})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    map_bp.run(debug=True, port=5000)
