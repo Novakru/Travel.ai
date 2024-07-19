@@ -182,6 +182,7 @@ const LoginForm: React.FC = () => {
         {isLogin ? '没有账号？立即注册' : '已有账号？去登录'}
       </div>
     </div>
+    
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import FooterComponent from "./components/FooterComponent";
 import dynamic from "next/dynamic";
-import '../../styles/demo.css'; 
+import '../../styles/demo.css';
 import Chatbot from "./components/Chatbot";
 
 
