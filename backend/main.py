@@ -8,7 +8,7 @@ from dotenv import load_dotenv,find_dotenv
 _ = load_dotenv(find_dotenv())
 
 # Get the API key from environment variables
-api_key = os.environ["ZHIPUAI_API_KEY"]
+api_key = os.environ["ZHIPUAI_KEY"]
 if not api_key:
     raise ValueError("API key is missing. Please check your .env file.")
 else:
