@@ -12,11 +12,8 @@
     "@chatui/core": "^2.4.2",
     "@langchain/core": "^0.2.17",
     "aos": "^3.0.0-beta.6",
-<<<<<<< HEAD
     "marked": "^13.0.2",
-=======
     "axios": "^1.7.2",
->>>>>>> 483667d6fdcdeef2d095278f88c4348a020017f0
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
