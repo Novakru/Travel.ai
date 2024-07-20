@@ -1,3 +1,7 @@
 import LoginForm from '../src/app/login';
 
-export default LoginForm;
+function LoginState() {
+    return <LoginForm state={true} />;
+}
+
+export default LoginState;

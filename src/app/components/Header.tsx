@@ -56,7 +56,7 @@ const Header = () => {
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8 mt-4 md:mt-0">
           <Link href="/login" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Login</Link>
-          <Link href="/login" className="px-4 py-1 border border-litedark rounded-[4px] hover:bg-litedark hover:text-white transition delay-200" onClick={toggleMenu}>Sign up</Link>
+          <Link href="/register" className="px-4 py-1 border border-litedark rounded-[4px] hover:bg-litedark hover:text-white transition delay-200" onClick={toggleMenu}>Sign up</Link>
 
           <select name="" id="" className="bg-transparent border-none outline-none">
             <option value="">简体中文</option>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/loginForm.css';
 
-const LoginForm: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(state);
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true); // true 表示密码隐藏，false 表示密码可见
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
