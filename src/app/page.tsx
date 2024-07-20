@@ -4,7 +4,6 @@ import Banner from "./components/Banner"
 import Category from "./components/Category"
 import Destination from "./components/Destination"
 import Book from "./components/Book"
-// import Testimonials from "./components/Testimonials"
 import Sponsors from "./components/Sponsors"
 import Subscribe from "./components/Subscribe"
 import Footer from "./components/Footer"
@@ -18,18 +17,16 @@ const Chatui = dynamic(() => import('./components/Chatui'), { ssr: false });
 export default function Home() {
   return (
     <main>
-      <Header />
+      {/* <Header />
       <Banner />
       <Category />
-	    <CallToActionL/>
+	  <CallToActionL/>
       <CallToActionR/>
       <Destination />
       <Book />
-      {/* <Testimonials /> */}
-      {/*<Sponsors />*/}
       <Subscribe />
-      <Footer />
-      {/* <Map /> */}
+      <Footer /> */}
+      <Map />
     </main>
   )
 }

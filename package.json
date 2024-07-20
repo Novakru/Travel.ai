@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@chatui/core": "^2.4.2",
+    "@langchain/core": "^0.2.17",
     "aos": "^3.0.0-beta.6",
+    "marked": "^13.0.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

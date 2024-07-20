@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const App: React.FC = () => {
+const Map: React.FC = () => {
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
   const [addresses, setAddresses] = useState<{ day: number; addresses: { address: string; location: any }[] }[]>([]);
@@ -34,10 +34,17 @@ const App: React.FC = () => {
         };
         initMap();
       };
-      document.body.appendChild(script);
+      document.head.appendChild(script);
+	  console.log(document);
     };
 
-    loadMapScripts();
+    if (!window.AMap) {
+      loadMapScripts();
+	  loadMapScripts();
+    } else {
+      initMap();
+    }
+
     clearStoredAddresses();
     fetchGeocodeInfo();
   }, []);
@@ -239,4 +246,6 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+
+
+export default Map;
