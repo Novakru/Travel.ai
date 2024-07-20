@@ -5,6 +5,16 @@ from login import login
 import os
 from dotenv import load_dotenv, find_dotenv
 
+<<<<<<< HEAD
+=======
+# Get the API key from environment variables
+api_key = os.environ["ZHIPUAI_KEY"]
+if not api_key:
+    raise ValueError("API key is missing. Please check your .env file.")
+else:
+    print(f"10000000Loaded API key: {api_key}")  # 添加这一行用于调
+    print(os.environ)
+>>>>>>> 483667d6fdcdeef2d095278f88c4348a020017f0
 main_app = Flask(__name__)
 CORS(main_app, resources={r"/*": {"origins": "*"}})
 

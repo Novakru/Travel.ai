@@ -5,75 +5,73 @@ import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 
 const Header = () => {
-     // Manage header bg change on scroll
-     const [scrollY, setScrollY] = useState(0);
-     const [headerBackground, setHeaderBackground] = useState('');
- 
-     // Manage visibility of nav menu
-     const [isMenuOpen, setIsMenuOpen] = useState(false);
-   
-     // Update the scroll position state when the user scrolls
-     const handleScroll = () => {
-       setScrollY(window.scrollY);
-     };
-   
-     useEffect(() => {
-       // Add a scroll event listener and cleanup on component unmount
-       window.addEventListener('scroll', handleScroll);
-       return () => {
-         window.removeEventListener('scroll', handleScroll);
-       };
-     }, []);
-   
-     // Determine the background color based on the scroll position
-     useEffect(() => {
-       if (scrollY > 0) {
-         // Apply a backdrop blur background when scrolling
-         setHeaderBackground('bg-hotpink shadow-md');
-       } else {
-         // Remove the background color when at the top
-         setHeaderBackground('');
-       }
-     }, [scrollY]);
- 
+  // Manage header bg change on scroll
+  const [scrollY, setScrollY] = useState(0);
+  const [headerBackground, setHeaderBackground] = useState('');
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-      };
+  // Manage visibility of nav menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    return ( 
-        <nav className={`py-5 px-[5%] top-0 w-full fixed flex items-center justify-between z-20 ${headerBackground} special-font`}>
-            <Link href="/" className="w-[80px]">
-                <Image src="/img/hero-logo.png" width={50} height={50} alt="logo" className="w-full" loading="eager"/>
-               
-            </Link>
+  // Update the scroll position state when the user scrolls
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  };
 
-            <section className={`${isMenuOpen ? 'left-0' : 'left-[-100%]'} nav-transition md:transition-none absolute top-[68px] md:top-0 md:left-0 md:relative md:flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8 text-[16px] text-litedark font-bold bg-orange md:bg-transparent pl-[5%] md:pl-auto py-10 md:py-0 w-full md:w-auto`}>
-                {/* <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8">
-                    <a href="#destination" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Destinations</a>
-                    <a href="#" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Hotels</a>
-                    <a href="#" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Flights</a>
-                    <a href="#bookings" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Bookings</a>
-                </div> */}
+  useEffect(() => {
+    // Add a scroll event listener and cleanup on component unmount
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8 mt-4 md:mt-0">
-                    <a href="/login" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Login</a>
-                    <a href="/login" className="px-4 py-1 border border-litedark rounded-[4px] hover:bg-litedark hover:text-white transition delay-200" onClick={toggleMenu}>Sign up</a>
+  // Determine the background color based on the scroll position
+  useEffect(() => {
+    if (scrollY > 0) {
+      // Apply a backdrop blur background when scrolling
+      setHeaderBackground('bg-hotpink shadow-md');
+    } else {
+      // Remove the background color when at the top
+      setHeaderBackground('');
+    }
+  }, [scrollY]);
 
-                    <select name="" id="" className="bg-transparent border-none outline-none">
-                        <option value="">简体中文</option>
-                        <option value="">ENGLISH</option>
-                    </select>
-                </div>
-            </section>
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-            {isMenuOpen ? 
-            <IoClose className="block md:hidden text-4xl text-orange font-bold cursor-pointer" onClick={toggleMenu}/>
-            :
-            <IoMenu className="block md:hidden text-4xl text-orange font-bold cursor-pointer" onClick={toggleMenu}/>
-            }
-        </nav>
-     );
+  return (
+    <nav className={`py-5 px-[5%] top-0 w-full fixed flex items-center justify-between z-20 ${headerBackground} special-font`}>
+      <Link href="/" className="w-[200px]">
+        <Image src="/img/logo03.png" width={500} height={500} alt="logo" className="w-full" loading="eager" />
+      </Link>
+
+      <section className={`${isMenuOpen ? 'left-0' : 'left-[-100%]'} nav-transition md:transition-none absolute top-[68px] md:top-0 md:left-0 md:relative md:flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8 text-[16px] text-litedark font-bold bg-orange md:bg-transparent pl-[5%] md:pl-auto py-10 md:py-0 w-full md:w-auto`}>
+        {/* <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8">
+          <a href="#destination" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Destinations</a>
+          <a href="#" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Hotels</a>
+          <a href="#" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Flights</a>
+          <a href="#bookings" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Bookings</a>
+        </div> */}
+
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 lg:gap-8 mt-4 md:mt-0">
+          <Link href="/login" className="hover:text-white md:hover:text-orange transition delay-200" onClick={toggleMenu}>Login</Link>
+          <Link href="/register" className="px-4 py-1 border border-litedark rounded-[4px] hover:bg-litedark hover:text-white transition delay-200" onClick={toggleMenu}>Sign up</Link>
+
+          <select name="" id="" className="bg-transparent border-none outline-none">
+            <option value="">简体中文</option>
+            <option value="">ENGLISH</option>
+          </select>
+        </div>
+      </section>
+
+      {isMenuOpen ? 
+      <IoClose className="block md:hidden text-4xl text-orange font-bold cursor-pointer" onClick={toggleMenu}/>
+      :
+      <IoMenu className="block md:hidden text-4xl text-orange font-bold cursor-pointer" onClick={toggleMenu}/>
+      }
+    </nav>
+  );
 }
- 
+
 export default Header;

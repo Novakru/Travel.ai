@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../../styles/loginForm.css'; 
+import '../../styles/loginForm.css';
 
-const LoginForm: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(state);
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true); // true 表示密码隐藏，false 表示密码可见
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
       return;
     }
 
-    fetch('http://127.0.0.1:5000/login', {
+    fetch('http://127.0.0.1:5000/login/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,14 +55,35 @@ const LoginForm: React.FC = () => {
       });
   };
 
-  const registerAndReturn = () => {
+  const handleRegister = () => {
     if (!registerEmail || !registerPassword) {
       alert('请输入您的邮箱和密码');
       return;
     }
 
-    alert('注册成功！请登录。'); // 示例提示信息
-    switchForm('login'); // 切换回登录表单
+    fetch('http://127.0.0.1:5000/login/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: registerEmail,
+        password: registerPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert('注册成功！请登录。');
+          switchForm('login');
+        } else {
+          alert('注册失败，请重试。');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('注册过程中发生错误');
+      });
   };
 
   return (
@@ -149,7 +170,7 @@ const LoginForm: React.FC = () => {
               </span>
             )}
           </div>
-          <button className="button" onClick={registerAndReturn}>
+          <button className="button" onClick={handleRegister}>
             注册
           </button>
         </div>
@@ -161,6 +182,7 @@ const LoginForm: React.FC = () => {
         {isLogin ? '没有账号？立即注册' : '已有账号？去登录'}
       </div>
     </div>
+    
   );
 };
 

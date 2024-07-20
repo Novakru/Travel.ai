@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Chatbot from '../components/Chatbot';
-import Map from './Map';
+import Map from './MapComponent';
 
 const MainComponent: React.FC = () => {
   const [activeTab, setActiveTab] = useState('itinerary');
