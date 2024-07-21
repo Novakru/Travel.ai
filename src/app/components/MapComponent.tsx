@@ -19,6 +19,9 @@ const MapComponent: React.FC = () => {
   const [addresses, setAddresses] = useState<Address[][]>([]);
   const [latLngs, setLatLngs] = useState<AddressWithLatLng[][]>([]);
   const [drivingRoutes, setDrivingRoutes] = useState<{ [key: string]: any }>({});
+  const [routeType, setRouteType] = useState<string>('Driving');
+  const [liveWeather, setLiveWeather] = useState<any>(null);
+  const [forecastWeather, setForecastWeather] = useState<any>(null);
   const mapRef = useRef<any>(null);
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const MapComponent: React.FC = () => {
   useEffect(() => {
     const loadMapScripts = () => {
       const script = document.createElement('script');
-      script.src = 'https://webapi.amap.com/maps?v=2.0&key=12d540f479e0d7e32221eb00e0cd15a7&plugin=AMap.Driving,AMap.Geocoder';
+      script.src = 'https://webapi.amap.com/maps?v=2.0&key=12d540f479e0d7e32221eb00e0cd15a7&plugin=AMap.Driving,AMap.Walking,AMap.Riding,AMap.Transfer,AMap.Weather,AMap.Geocoder,AMap.ControlBar,AMap.ToolBar';
       script.async = true;
       script.onload = () => {
         window._AMapSecurityConfig = {
@@ -68,21 +71,36 @@ const MapComponent: React.FC = () => {
         resizeEnable: true,
         center: [116.397428, 39.90923], // 北京市中心
         zoom: 13,
+        pitch: 50, // 开启3D视图
+        rotation: -15,
+        viewMode: '3D', // 开启3D视图
+        zooms: [2, 20],
       });
       mapRef.current = map;
 
+      const controlBar = new AMap.ControlBar({
+        position: {
+          right: '10px',
+          top: '10px',
+        },
+      });
+      map.addControl(controlBar);
+
+      const toolBar = new AMap.ToolBar({
+        position: {
+          right: '40px',
+          top: '110px',
+        },
+      });
+      map.addControl(toolBar);
+
       const fetchLatLngs = async () => {
         const allLatLngs: AddressWithLatLng[][] = [];
-        console.log('Fetching locations...');        
         for (const dayAddresses of addresses) {
-          console.log('Fetching locations for a day...');
           const dayLatLngs: AddressWithLatLng[] = [];
           for (const addressInfo of dayAddresses) {
-            console.log(`Fetching location for ${addressInfo.address}...`);
             try {
-              console.log(`Fetching location for ${addressInfo.address}...`);
               const latLng = await getLatLng(addressInfo);
-              console.log(`Location for ${addressInfo.address} fetched`);
               dayLatLngs.push(latLng);
               new AMap.Marker({
                 map,
@@ -104,7 +122,6 @@ const MapComponent: React.FC = () => {
             const geocoder = new AMap.Geocoder({
               city: geocodeInfo?.region || '010',
             });
-            console.log(`Getting location for ${addressInfo.address}...`);
 
             geocoder.getLocation(addressInfo.address, (status: string, result: any) => {
               if (status === 'complete' && result.geocodes.length) {
@@ -124,13 +141,32 @@ const MapComponent: React.FC = () => {
 
       if (addresses.length > 0 && geocodeInfo) {
         fetchLatLngs();
+        fetchWeather(geocodeInfo.region);
       }
     };
 
     if (addresses.length > 0 && geocodeInfo) {
       loadMapScripts();
+      loadMapScripts();
     }
   }, [addresses, geocodeInfo]);
+
+  const fetchWeather = (city: string) => {
+    const AMap = (window as any).AMap;
+    AMap.plugin('AMap.Weather', function() {
+      const weather = new AMap.Weather();
+      weather.getLive(city, function(err: any, data: any) {
+        if (!err) {
+          setLiveWeather(data);
+        }
+      });
+      weather.getForecast(city, function(err: any, data: any) {
+        if (!err) {
+          setForecastWeather(data);
+        }
+      });
+    });
+  };
 
   const toggleRoute = (start: AddressWithLatLng, end: AddressWithLatLng, routeKey: string) => {
     if (!mapRef.current) {
@@ -144,32 +180,77 @@ const MapComponent: React.FC = () => {
       const newRoutes = { ...drivingRoutes };
       delete newRoutes[routeKey];
       setDrivingRoutes(newRoutes);
-      console.log(`Route ${routeKey} removed`);
     } else {
-      const driving = new AMap.Driving({
-        map: mapRef.current,
-        panel: 'panel',
-      });
+      const createRoute = (RouteClass: any) => {
+        const route = new RouteClass({
+          map: mapRef.current,
+          panel: 'panel',
+        });
 
-      driving.search([
-        { keyword: start.address, city: geocodeInfo?.region || '' },
-        { keyword: end.address, city: geocodeInfo?.region || '' }
-      ], (status: string, result: any) => {
-        if (status === 'complete') {
-          setDrivingRoutes((prevRoutes) => ({ ...prevRoutes, [routeKey]: driving }));
-          console.log(`Route ${routeKey} added`);
-        } else {
-          console.error('路线计算失败:', result);
-        }
-      });
+        route.search([
+          { keyword: start.address, city: geocodeInfo?.region || '' },
+          { keyword: end.address, city: geocodeInfo?.region || '' }
+        ], (status: string, result: any) => {
+          if (status === 'complete') {
+            setDrivingRoutes((prevRoutes) => ({ ...prevRoutes, [routeKey]: route }));
+          } else {
+            console.error(`${routeType}路线数据查询失败:`, result);
+          }
+        });
+      };
+
+      switch (routeType) {
+        case 'Driving':
+          createRoute(AMap.Driving);
+          break;
+        case 'Walking':
+          createRoute(AMap.Walking);
+          break;
+        case 'Riding':
+          createRoute(AMap.Riding);
+          break;
+        case 'Transfer':
+          createRoute(AMap.Transfer);
+          break;
+        default:
+          break;
+      }
     }
   };
 
   return (
     <div className="App">
+      <div className="weather-info">
+        {liveWeather && (
+          <div className="live-weather">
+            <h4>实时天气</h4>
+            <p>城市/区：{liveWeather.city}</p>
+            <p>天气：{liveWeather.weather}</p>
+            <p>温度：{liveWeather.temperature}℃</p>
+            <p>风向：{liveWeather.windDirection}</p>
+            <p>风力：{liveWeather.windPower} 级</p>
+            <p>空气湿度：{liveWeather.humidity}</p>
+            <p>发布时间：{liveWeather.reportTime}</p>
+          </div>
+        )}
+        {forecastWeather && (
+          <div className="forecast-weather">
+            <h4>天气预报</h4>
+            {forecastWeather.forecasts.map((dayWeather: any, index: number) => (
+              <p key={index}>{dayWeather.date} <span className="weather">{dayWeather.dayWeather}</span> {dayWeather.nightTemp}~{dayWeather.dayTemp}℃</p>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="mapContainer" id="mapContainer"></div>
       <div className="bottom">
         <div className="left" id="addressListContainer">
+          <select onChange={(e) => setRouteType(e.target.value)} value={routeType}>
+            <option value="Driving">驾车</option>
+            <option value="Walking">步行</option>
+            <option value="Riding">骑行</option>
+            <option value="Transfer">公交</option>
+          </select>
           {latLngs.map((dayLatLngs, dayIndex) => (
             <div className="day-block" key={dayIndex}>
               <h2>{`第${dayIndex + 1}天`}</h2>

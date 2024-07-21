@@ -4,6 +4,7 @@ import "@chatui/core/dist/index.css";
 import "../../../styles/Chatui.css"; // 确保你有这个CSS文件
 import { Stepper, Step } from '@chatui/core';
 import { RemoteRunnable } from "@langchain/core/runnables/remote";
+import axios from 'axios';
 
 const initialMessages = [
   {
@@ -53,12 +54,24 @@ const Chatui = () => {
         input: plan,
       });
 
+      console.log('Chain result:', result.content);
+
       // 确保 result 是一个字符串，如果不是则转换为字符串
       let itinerary = typeof (result.content) === 'string' ? result.content : JSON.stringify(result.content);
 
       // 去除可能的格式化标记
       itinerary = itinerary.replace(/```json|```/g, '');
       itinerary = JSON.parse(itinerary);
+
+      // 将 result.content 发送到 http://127.0.0.1:5000/map/data
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/map/data', {
+          data: result.content
+        });
+        console.log('Data sent successfully:', response.data);
+      } catch (error) {
+        console.error('Error sending data:', error);
+      }
 
 	//   console.log(itinerary);
 
