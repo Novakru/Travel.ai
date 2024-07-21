@@ -3,7 +3,8 @@
 如果电脑上安装了nodejs,那么执行如下命令就可以热启动网页。
 
 ```bash
-npm install
+npm install yarn
+yarn install
 npm run dev
 ```
 - 在自己电脑的端口可以渲染出网页的具体内容，可能是类似 [http://localhost:3000](http://localhost:3000) 这样的页面
