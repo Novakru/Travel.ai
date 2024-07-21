@@ -7,9 +7,9 @@ map_bp = Blueprint('map', __name__)
 CORS(map_bp)  # 允许所有来源的请求
 
 stored_addresses = [
-    # [{'address': '故宫博物院'}, {'address': '天安门广场'}, {'address': '王府井大街'}],
-    # [{'address': '颐和园'}, {'address': '圆明园'}, {'address': '北海公园'}],
-    # [{'address': '天坛'}, {'address': '国家博物馆'}, {'address': '798艺术区'}]
+    [{'address': '故宫博物院'}, {'address': '天安门广场'}, {'address': '王府井大街'}],
+    [{'address': '颐和园'}, {'address': '圆明园'}, {'address': '北海公园'}],
+    [{'address': '天坛'}, {'address': '国家博物馆'}, {'address': '798艺术区'}]
 ]
 
 geocode_info = {'region': '北京'}
