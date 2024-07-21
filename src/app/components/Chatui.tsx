@@ -4,7 +4,7 @@ import "@chatui/core/dist/index.css";
 import "../../../styles/Chatui.css"; // 确保你有这个CSS文件
 import { Stepper, Step, Button } from '@chatui/core';
 import { RemoteRunnable } from "@langchain/core/runnables/remote";
-import { randomInt } from "crypto";
+import axios from 'axios';
 
 const initialMessages = [
   {
@@ -54,6 +54,9 @@ const Chatui = () => {
         input: plan,
       });
 
+      console.log('Chain result:', result.content);
+
+      // 确保 result 是一个字符串，如果不是则转换为字符串
       let itinerary = typeof (result.content) === 'string' ? result.content : JSON.stringify(result.content);
 
       itinerary = itinerary.replace(/```json|```/g, '');

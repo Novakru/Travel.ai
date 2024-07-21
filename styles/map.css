@@ -16,6 +16,24 @@
     border-bottom: 1px solid #ccc; /* 可选的边框样式 */
 }
 
+/* 天气信息容器 */
+.weather-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.live-weather, .forecast-weather {
+    width: 48%;
+}
+
+.weather {
+    display: inline-block;
+    padding-left: 0.5rem;
+}
+
 /* 下部区域 */
 .bottom {
     display: flex;
