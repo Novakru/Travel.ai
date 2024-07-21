@@ -26,7 +26,7 @@ async def generate_response(content):
         # 将字符串编码为字节流
         yield message_str.encode('utf-8')
     
-@router.post("/api/chat")
+@router.post("/chain/tagging_pure")
 async def chat(item:Item):
     print("传输的参数为：",item.content)
     return StreamingResponse(generate_response(item.content),media_type="text/event-stream")
