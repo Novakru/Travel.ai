@@ -13,7 +13,7 @@ const FooterComponent: React.FC = () => {
           <Link href="https://github.com/Novakru/Travel.ai" className="py-1 px-3 rounded-md text-gray-700 text-[14px] font-medium hover:no-underline hover:bg-gray-200 hover:shadow-md transition transform hover:scale-105">
             Project
           </Link>
-          <Link href="/Map" className="py-1 px-3 rounded-md text-gray-700 text-[14px] font-medium hover:no-underline hover:bg-gray-200 hover:shadow-md transition transform hover:scale-105">
+          <Link href="/map" className="py-1 px-3 rounded-md text-gray-700 text-[14px] font-medium hover:no-underline hover:bg-gray-200 hover:shadow-md transition transform hover:scale-105">
             Map
           </Link>
         </nav>

@@ -258,7 +258,7 @@ const Chatui = () => {
 				<h1 className="mb-2"> ✨✨ 点击下方按钮，有更好的用户体验哦！</h1>
 			  <Button
 				block
-					onClick={() => { window.location.href = '/Map'; }}
+					onClick={() => { window.location.href = '/map'; }}
 				>
 				{content.text}
 			  </Button>
