@@ -60,7 +60,21 @@ const Chatui = () => {
       let itinerary = typeof (result.content) === 'string' ? result.content : JSON.stringify(result.content);
 
       itinerary = itinerary.replace(/```json|```/g, '');
-      itinerary = JSON.parse(itinerary);
+      itinerary = JSON.parse(itinerary);  
+
+      try {
+        console.log('Sending data:', itinerary);
+        const response = await axios.post('http://127.0.0.1:5000/map/data', {
+          data: JSON.stringify(itinerary)
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('Data sent successfully:', response.data);
+      } catch (error) {
+        console.error('Error sending data:', error);
+      }  
 
       Object.keys(itinerary).forEach((day, dayIndex) => {
         const steps = [];

@@ -25,24 +25,21 @@ def get_addresses():
 @map_bp.route('/data', methods=['POST'])
 def receive_data():
     data = request.json.get('data')
-    if not data:
-        return jsonify({'success': False, 'message': 'No data provided'}), 400
-
-    try:
-        itinerary = json.loads(data)
-    except json.JSONDecodeError:
-        return jsonify({'success': False, 'message': 'Invalid JSON format'}), 400
+    print('Data:', data)
+    dict_data = json.loads(data)
+    print(dict_data)
 
     global stored_addresses
-    stored_addresses = []  # 清空当前存储的数据，后期存储进入数据库
+    stored_addresses = []
 
-    for day in itinerary.values():
+    for day, activities in dict_data.items():
         day_addresses = []
-        for time_period in day.values():
-            for activity in time_period:
-                day_addresses.append({'address': activity['地点']})
+        for time_period, places in activities.items():
+            for place in places:
+                day_addresses.append({'address': place['地点']})
         stored_addresses.append(day_addresses)
-    print('Stored addresses:', stored_addresses)
+    
+    print(stored_addresses)
 
     return jsonify({'success': True, 'message': 'Data received successfully'})
 
