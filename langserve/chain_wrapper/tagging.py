@@ -125,7 +125,7 @@ tagging_prompt = ChatPromptTemplate.from_template("""
   }}
 }}
 
-千万注意！！！只需返回JSON结果，不要有其他多余的信息
+千万注意！！！只需返回JSON结果，由于后续要对数据进行处理，请严格按照格式输出，不要带有任何说明性的信息！不要有其他多余的信息！
 
 text:{input}
 """)

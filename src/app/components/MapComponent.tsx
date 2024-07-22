@@ -94,6 +94,35 @@ const MapComponent: React.FC = () => {
       });
       map.addControl(toolBar);
 
+      const getLatLng = (addressInfo: Address): Promise<AddressWithLatLng> => {
+        return new Promise((resolve, reject) => {
+          const AMap = (window as any).AMap;
+          AMap.plugin('AMap.Geocoder', function() {
+            const geocoder = new AMap.Geocoder({
+              city: geocodeInfo?.region || '010',
+            });
+      
+            const timeoutId = setTimeout(() => {
+              reject(new Error(`Timed out to get location for ${addressInfo.address}`));
+            }, 2000); // 2秒超时
+      
+            geocoder.getLocation(addressInfo.address, (status: string, result: any) => {
+              clearTimeout(timeoutId); // 成功获取到位置后，清除超时计时器
+              if (status === 'complete' && result.geocodes.length) {
+                const location = result.geocodes[0].location;
+                resolve({
+                  address: addressInfo.address,
+                  lng: location.lng,
+                  lat: location.lat,
+                });
+              } else {
+                reject(new Error(`Failed to get location for ${addressInfo.address}`));
+              }
+            });
+          });
+        });
+      };
+      
       const fetchLatLngs = async () => {
         const allLatLngs: AddressWithLatLng[][] = [];
         for (const dayAddresses of addresses) {
@@ -114,29 +143,6 @@ const MapComponent: React.FC = () => {
           allLatLngs.push(dayLatLngs);
         }
         setLatLngs(allLatLngs);
-      };
-
-      const getLatLng = (addressInfo: Address): Promise<AddressWithLatLng> => {
-        return new Promise((resolve, reject) => {
-          AMap.plugin('AMap.Geocoder', function() {
-            const geocoder = new AMap.Geocoder({
-              city: geocodeInfo?.region || '010',
-            });
-
-            geocoder.getLocation(addressInfo.address, (status: string, result: any) => {
-              if (status === 'complete' && result.geocodes.length) {
-                const location = result.geocodes[0].location;
-                resolve({
-                  address: addressInfo.address,
-                  lng: location.lng,
-                  lat: location.lat,
-                });
-              } else {
-                reject(`Failed to get location for ${addressInfo.address}`);
-              }
-            });
-          });
-        });
       };
 
       if (addresses.length > 0 && geocodeInfo) {

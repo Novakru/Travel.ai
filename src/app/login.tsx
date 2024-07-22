@@ -30,7 +30,7 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
       alert('请输入您的邮箱和密码');
       return;
     }
-
+  
     fetch('http://127.0.0.1:5000/login/login', {
       method: 'POST',
       headers: {
@@ -45,6 +45,8 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
       .then((data) => {
         if (data.success) {
           alert('登录成功');
+          const sessionId = data.session_id;
+          window.location.href = `http://127.0.0.1:3000/demo/${sessionId}`;
         } else {
           alert('登录失败，请检查您的邮箱和密码');
         }
@@ -53,7 +55,7 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
         console.error('Error:', error);
         alert('登录过程中发生错误');
       });
-  };
+  };  
 
   const handleRegister = () => {
     if (!registerEmail || !registerPassword) {

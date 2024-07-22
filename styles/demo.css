@@ -25,16 +25,13 @@ body, html {
 
 .main-content {
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     color: black;
     border: 4px solid #5a1a5f;
     border-radius: 12px;
-    padding: 20px;
     margin: 20px;
-    width: 100%; /* 使内容区域尽可能扩展 */
+    width: calc(100% - 40px); /* 调整宽度以适应边距 */
 }
 
 .footer {
@@ -43,6 +40,7 @@ body, html {
     text-align: center;
     padding: 10px 0;
     border-top: 4px solid #5a1a5f;
+    margin-top: auto;
 }
 
 .footer a {
@@ -52,4 +50,62 @@ body, html {
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+.background-container {
+    display: flex;
+}
+
+#root {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar .session-button,
+.sidebar .new-chat-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #882a8f;
+    color: white;
+    border: 4px solid #5a1a5f; /* 修改边框样式 */
+    border-radius: 12px; /* 圆角 */
+    cursor: pointer;
+    margin-bottom: 10px; /* 增加按钮之间的间距 */
+}
+
+.sidebar .session-button:hover,
+.sidebar .new-chat-button:hover {
+    background-color: #5a1a5f;
+}
+
+.sidebar .current-session {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    border: 4px solid #5a1a5f; /* 修改边框样式 */
+    border-radius: 12px; /* 圆角 */
+    cursor: not-allowed;
+    margin-bottom: 10px; /* 增加按钮之间的间距 */
 }
