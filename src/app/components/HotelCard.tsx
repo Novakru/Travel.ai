@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-// HotelCard.js
->>>>>>> 5e223193ba613010e1f290cf06c072398759b0b5
 import React from "react";
 import { Box, Center, Image, Flex, Badge, Text } from "@chakra-ui/react";
 import { MdStar } from "react-icons/md";
@@ -38,8 +34,4 @@ const HotelCard = ({ hotel }) => {
   );
 };
 
-<<<<<<< HEAD
 export default HotelCard;
-=======
-export default HotelCard;
->>>>>>> 5e223193ba613010e1f290cf06c072398759b0b5
