@@ -1,8 +1,0 @@
-/* styles.css 或全局样式文件 */
-.elliptical_border {
-    border-radius: 50% / 25%; /* 创建椭圆形边框 */
-    overflow: hidden; /* 确保图片遵循边框的形状 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 可选：添加阴影 */
-    border: 2px solid #ccc; /* 可选：为图片添加边框 */
-  }
-  
