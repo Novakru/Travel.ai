@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@chakra-ui/react": "2.8.2",
     "@chatui/core": "^2.4.2",
     "@emotion/react": "11.13.0",
@@ -17,6 +18,16 @@
     "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
     "framer-motion": "11.3.8",
+=======
+    "@chakra-ui/react": "^2.8.2",
+    "@chatui/core": "^2.4.2",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@langchain/core": "^0.2.17",
+    "aos": "^3.0.0-beta.6",
+    "axios": "^1.7.2",
+    "framer-motion": "^11.3.8",
+>>>>>>> 5e223193ba613010e1f290cf06c072398759b0b5
     "langchain": "^0.2.10",
     "marked": "^13.0.2",
     "next": "14.0.3",

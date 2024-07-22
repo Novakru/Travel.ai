@@ -23,4 +23,8 @@ const TrainTicketCard = ({ ticket }) => (
   </Box>
 );
 
+<<<<<<< HEAD
 export default TrainTicketCard;
+=======
+export default TrainTicketCard;
+>>>>>>> 5e223193ba613010e1f290cf06c072398759b0b5
