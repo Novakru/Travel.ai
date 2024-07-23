@@ -56,30 +56,39 @@ const Chatui: React.FC<{ recordId: string }> = ({ recordId }) => {
     });
 
     try {
-      const result = await chain.invoke({
-        input: plan,
-      });
-
-      console.log('Chain result:', result.content);
-
-      let itinerary = typeof (result.content) === 'string' ? result.content : JSON.stringify(result.content);
-
-      itinerary = itinerary.replace(/```json|```/g, '');
-      itinerary = JSON.parse(itinerary);
-      console.log('Itinerary:', itinerary);
-
-      // 将 result.content 发送到 http://127.0.0.1:5000/map/data
-      try {
-        const response = await axios.post('http://127.0.0.1:5000/map/data', {
-          data: itinerary
-        });
-        console.log('Data sent successfully:', response.data);
-      } catch (error) {
-        console.error('Error sending data:', error);
-      }
-
       if (islist) {
+		appendMsg({
+            type: "text",
+            content: { text: `正在生成计划清单，请耐心等待哦！😊` },
+            position: "left",
+            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          });
+
         setTyping(true);
+
+
+		const result = await chain.invoke({
+			input: plan,
+		  });
+	
+		  console.log('Chain result:', result.content);
+	
+		  let itinerary = typeof (result.content) === 'string' ? result.content : JSON.stringify(result.content);
+	
+		  itinerary = itinerary.replace(/```json|```/g, '');
+		  itinerary = JSON.parse(itinerary);
+		  console.log('Itinerary:', itinerary);
+	
+		  // 将 result.content 发送到 http://127.0.0.1:5000/map/data
+		  try {
+			const response = await axios.post('http://127.0.0.1:5000/map/data', {
+			  data: itinerary
+			});
+			console.log('Data sent successfully:', response.data);
+		  } catch (error) {
+			console.error('Error sending data:', error);
+		}
+		
         Object.keys(itinerary).forEach((day, dayIndex) => {
           const steps = [];
           const activities = itinerary[day];
@@ -172,58 +181,71 @@ const Chatui: React.FC<{ recordId: string }> = ({ recordId }) => {
           islist = true;
         }
 
-        else if (val.includes("🚝高铁出行")) {
-          const trainTickets = [
-            {
-              from: "杭州东",
-              to: "北京",
-              depTime: "07:10",
-              arrTime: "13:05",
-              bestPrice: 538.5,
-              isRecommended: true,
-              description: "直达高铁，无需换乘"
-            },
-            {
-              from: "杭州东",
-              to: "北京",
-              depTime: "08:24",
-              arrTime: "13:38",
-              bestPrice: 538.5,
-              description: "途径多个景点，风景优美"
-            }
-          ];
+        else if (val.includes("高铁出行")) {
 
-          trainTickets.forEach(ticket => {
-            appendMsg({
-              type: "train-ticket",
-              content: { ticket },
-              position: "left",
-              user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
-            });
-          });
-          return;
-        }
-      
-        else if (val.includes("🏠酒店预约")) {
-          const hotel = {
-            imageUrl: "https://bit.ly/2k1H1t6",
-            location: "Cape Town",
-            name: "Modern, Chic Penthouse with Mountain, City & Sea Views",
-            price: "$119",
-            rating: "4.84",
-            reviews: 190
-          };
-      
-          appendMsg({
-            type: "hotel-card",
-            content: { hotel },
-            position: "left",
-            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
-          });
-  
-          return;
-        }
-      
+			const trainTickets = [
+				{
+				  from: "杭州东",
+				  to: "北京",
+				  depTime: "07:10",
+				  arrTime: "17:05",
+				  bestPrice: 1038.5,
+				  isRecommended: true,
+				  description: "直达高铁，无需换乘，舒适一等座"
+				},
+				{
+				  from: "杭州东",
+				  to: "南京南",
+				  depTime: "08:24",
+				  arrTime: "13:38",
+				  bestPrice: 237.1,
+				  description: "途径多个景点，风景优美，二等座"
+				}
+			  ];
+	  
+			setTyping(true);
+			setTimeout(() => {
+				trainTickets.forEach(ticket => {
+					appendMsg({
+					type: "train-ticket",
+					content: { ticket },
+					position: "left",
+					user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+					});
+				  });
+				setTyping(false);
+			}, 3000);
+	
+			
+	
+			return;
+		  }
+	
+		  if (val.includes("酒店预约")) {
+			const hotel = {
+			  imageUrl: "https://q-xx.bstatic.com/xdata/images/hotel/max1024x720/163065707.jpg?k=4ca1d135903213de8641e244e8dab64e2cbed37f5d295927b9e5e0f19e2d8714&o=",
+			  location: "TowerCWandaPlaza ",
+			  name: "Wanda Vista Beijing & 5 stars hotel ",
+			  price: "￥500-700",
+			  rating: "4.84",
+			  reviews: 190
+			};
+	
+	
+			setTyping(true);
+			setTimeout(() => {
+				appendMsg({
+					type: "hotel-card",
+					content: { hotel },
+					position: "left",
+					user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+				  });
+				setTyping(false);
+			}, 3000);
+	
+			return;
+		  }
+	
       
       else {
         appendMsg(newMsg);

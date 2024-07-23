@@ -5,7 +5,7 @@ const TrainTicketCard = ({ ticket }) => (
   <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="6" bg="gray.800" boxShadow="lg">
     <VStack align="start" spacing="4">
       <HStack justifyContent="space-between" w="100%">
-        <Text fontWeight="bold" fontSize="xl" color="white">{ticket.from} - {ticket.to}</Text>
+        <Text fontWeight="bold" fontSize="xl" color="black">{ticket.from} - {ticket.to}</Text>
         <Text color="gray.400" fontSize="md">{ticket.depTime} - {ticket.arrTime}</Text>
       </HStack>
       <Divider borderColor="gray.600" />
