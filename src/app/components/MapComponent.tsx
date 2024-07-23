@@ -194,10 +194,19 @@ const MapComponent: React.FC = () => {
       delete newRoutes[routeKey];
       setDrivingRoutes(newRoutes);
     } else {
+      const panelId = `panel-${routeKey}`;
+      let panel = document.getElementById(panelId);
+
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = panelId;
+        document.getElementById('panel')?.appendChild(panel);
+      }
+
       const createRoute = (RouteClass: any) => {
         const route = new RouteClass({
           map: mapRef.current,
-          panel: 'panel',
+          panel: panelId,
         });
 
         route.search([
