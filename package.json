@@ -9,10 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "2.8.2",
     "@chatui/core": "^2.4.2",
-    "@langchain/core": "^0.2.17",
+    "@emotion/react": "11.13.0",
+    "@emotion/styled": "11.13.0",
+    "@langchain/core": "^0.2.18",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
+    "event-source-polyfill": "^1.0.31",
+    "framer-motion": "11.3.8",
     "langchain": "^0.2.10",
     "marked": "^13.0.2",
     "next": "14.0.3",
@@ -20,7 +25,9 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.25.1",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "uuid": "^10.0.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",

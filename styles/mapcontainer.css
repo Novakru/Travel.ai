@@ -1,0 +1,6 @@
+.Map {
+    background-image: url('/bg-demo/bg-demo4.jpg');
+    background-size: cover; /* 让背景图覆盖整个容器 */
+    background-position: center; /* 让背景图居中 */
+    height: 100vh; /* 让背景图覆盖整个视口高度 */
+  }

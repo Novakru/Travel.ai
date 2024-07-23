@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { TiLocationArrow } from "react-icons/ti";
 import { useState, useEffect } from "react";
-import styles from './Destination.module.css'; // Assuming you have a CSS module for styles
+import styles from '../../../styles/Destination.module.css'; // Assuming you have a CSS module for styles
 
 const Destination = () => {
     interface Destination {

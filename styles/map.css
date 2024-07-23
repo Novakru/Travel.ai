@@ -1,28 +1,75 @@
-/* 页面布局 */
 .App {
+    display: grid;
+    grid-template-areas:
+      "leftCol mapContainer";
+    grid-template-columns: 30% 70%;
+    grid-template-rows: auto;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+/* 左侧列 */
+.leftCol {
+    grid-area: leftCol;
     display: flex;
     flex-direction: column;
-    width: 700px; /* 固定宽度 */
-    height: 900px; /* 固定高度 */
-    margin: 0 auto; /* 居中 */
-    border: 1px solid #ccc; /* 可选的边框样式 */
-    border-radius: 5px; /* 可选的圆角样式 */
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    background-color: #f9f9f9;
+    overflow: hidden; /* 隐藏溢出内容 */
 }
 
 /* 地图容器 */
 .mapContainer {
-    width: 100%;
-    height: 50%; /* 地图占据上半部分 */
-    border-bottom: 1px solid #ccc; /* 可选的边框样式 */
+    grid-area: mapContainer;
+    height: 100%;
+    background: #eaeaea;
 }
 
 /* 天气信息容器 */
 .weather-info {
-    display: flex;
-    justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     background-color: #f9f9f9;
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    flex: 1;
+}
+
+/* 地址列表容器的样式 */
+.addressListContainer {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    flex: 2;
+}
+
+/* 面板的样式 */
+#panel {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    height: 100%;
+    overflow-y: auto; /* 可选的垂直滚动条 */
+    flex: 3;
+}
+
+
+
+
+
+
+.routeInfo {
+    grid-area: routeInfo;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    overflow: hidden; /* 隐藏溢出内容 */
 }
 
 .live-weather, .forecast-weather {
@@ -31,6 +78,7 @@
 
 .weather {
     display: inline-block;
+    flex-direction: column;
     padding-left: 0.5rem;
 }
 
@@ -41,28 +89,30 @@
 }
 
 /* 左侧地址列表区域 */
-.left {
-    width: 70%; /* 根据需要调整宽度 */
+.up {
+    width: 600px; /* 根据需要调整宽度 */
     height: 100%;
     display: flex;
     flex-direction: column;
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    border-radius: 15px; /* 增加弧度 */
 }
 
 /* 右侧面板区域 */
-.right {
-    width: 30%; /* 根据需要调整宽度 */
-    height: 100%;
+.down {
+    width: 100%; /* 根据需要调整宽度 */
+    height: 50px;
     display: flex;
     flex-direction: column;
 }
 
 /* 地址列表容器的样式 */
 #addressListContainer {
+    width: 100%;
+    height: 600px;
     flex: 1;
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ccc; /* 可选的边框样式 */
-    border-radius: 5px; /* 可选的圆角样式 */
     background-color: #f9f9f9; /* 可选的背景色 */
     overflow-y: auto; /* 可选的垂直滚动条 */
 }
@@ -89,8 +139,8 @@
 /* 地址项的样式 */
 .address-item {
     padding: 5px 10px;
-    border: 1px solid #ccc; /* 可选的边框样式 */
-    border-radius: 5px; /* 可选的圆角样式 */
+    border: 2px solid #5a1a5f; /* 使用客户指定的紫色边框 */
+    border-radius: 15px; /* 增加弧度 */
     background-color: #e9ecef; /* 可选的背景色 */
     white-space: nowrap; /* 防止换行 */
 }
@@ -103,7 +153,7 @@
     height: 20px;
     border: none;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: #5a1a5f;
     color: white;
     cursor: pointer;
     display: flex;
@@ -115,16 +165,4 @@
 
 .route-button:hover {
     background-color: #0056b3;
-}
-
-/* 面板的样式 */
-#panel {
-    flex: 1;
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc; /* 可选的边框样式 */
-    border-radius: 5px; /* 可选的圆角样式 */
-    background-color: #f9f9f9; /* 可选的背景色 */
-    height: 100%; /* 根据需要调整高度 */
-    overflow-y: auto; /* 可选的垂直滚动条 */
 }

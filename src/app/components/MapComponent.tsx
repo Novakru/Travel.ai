@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../../../styles/map.css';
 import { FaRoute, FaTimes } from 'react-icons/fa'; // 引入图标
 
+let setCenter = false;
+
 interface Address {
   address: string;
 }
@@ -30,6 +32,7 @@ const MapComponent: React.FC = () => {
         const response = await axios.get('http://localhost:5000/map/getGeocodeInfo');
         if (response.data.success) {
           setGeocodeInfo(response.data.geocode_info);
+          setCenter = false;
         }
       } catch (error) {
         console.error('Error fetching geocode info:', error);
@@ -94,6 +97,39 @@ const MapComponent: React.FC = () => {
       });
       map.addControl(toolBar);
 
+      const getLatLng = (addressInfo: Address): Promise<AddressWithLatLng> => {
+        return new Promise((resolve, reject) => {
+          const AMap = (window as any).AMap;
+          AMap.plugin('AMap.Geocoder', function() {
+            const geocoder = new AMap.Geocoder({
+              city: geocodeInfo?.region || '010',
+            });
+      
+            const timeoutId = setTimeout(() => {
+              reject(new Error(`Timed out to get location for ${addressInfo.address}`));
+            }, 2000); // 2秒超时
+      
+            geocoder.getLocation(addressInfo.address, (status: string, result: any) => {
+              clearTimeout(timeoutId); // 成功获取到位置后，清除超时计时器
+              if (status === 'complete' && result.geocodes.length) {
+                const location = result.geocodes[0].location;
+                if (setCenter === false){
+                  map.setCenter([location.lng, location.lat]);
+                  setCenter = true;
+                }
+                resolve({
+                  address: addressInfo.address,
+                  lng: location.lng,
+                  lat: location.lat,
+                });
+              } else {
+                reject(new Error(`Failed to get location for ${addressInfo.address}`));
+              }
+            });
+          });
+        });
+      };
+      
       const fetchLatLngs = async () => {
         const allLatLngs: AddressWithLatLng[][] = [];
         for (const dayAddresses of addresses) {
@@ -114,29 +150,6 @@ const MapComponent: React.FC = () => {
           allLatLngs.push(dayLatLngs);
         }
         setLatLngs(allLatLngs);
-      };
-
-      const getLatLng = (addressInfo: Address): Promise<AddressWithLatLng> => {
-        return new Promise((resolve, reject) => {
-          AMap.plugin('AMap.Geocoder', function() {
-            const geocoder = new AMap.Geocoder({
-              city: geocodeInfo?.region || '010',
-            });
-
-            geocoder.getLocation(addressInfo.address, (status: string, result: any) => {
-              if (status === 'complete' && result.geocodes.length) {
-                const location = result.geocodes[0].location;
-                resolve({
-                  address: addressInfo.address,
-                  lng: location.lng,
-                  lat: location.lat,
-                });
-              } else {
-                reject(`Failed to get location for ${addressInfo.address}`);
-              }
-            });
-          });
-        });
       };
 
       if (addresses.length > 0 && geocodeInfo) {
@@ -220,31 +233,30 @@ const MapComponent: React.FC = () => {
 
   return (
     <div className="App">
-      <div className="weather-info">
-        {liveWeather && (
-          <div className="live-weather">
-            <h4>实时天气</h4>
-            <p>城市/区：{liveWeather.city}</p>
-            <p>天气：{liveWeather.weather}</p>
-            <p>温度：{liveWeather.temperature}℃</p>
-            <p>风向：{liveWeather.windDirection}</p>
-            <p>风力：{liveWeather.windPower} 级</p>
-            <p>空气湿度：{liveWeather.humidity}</p>
-            <p>发布时间：{liveWeather.reportTime}</p>
-          </div>
-        )}
-        {forecastWeather && (
-          <div className="forecast-weather">
-            <h4>天气预报</h4>
-            {forecastWeather.forecasts.map((dayWeather: any, index: number) => (
-              <p key={index}>{dayWeather.date} <span className="weather">{dayWeather.dayWeather}</span> {dayWeather.nightTemp}~{dayWeather.dayTemp}℃</p>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="mapContainer" id="mapContainer"></div>
-      <div className="bottom">
-        <div className="left" id="addressListContainer">
+      <div className="leftCol">
+        <div className="weather-info">
+          {liveWeather && (
+            <div className="live-weather">
+              <h4>实时天气</h4>
+              <p>城市/区：{liveWeather.city}</p>
+              <p>天气：{liveWeather.weather}</p>
+              <p>温度：{liveWeather.temperature}℃</p>
+              <p>风向：{liveWeather.windDirection}</p>
+              <p>风力：{liveWeather.windPower} 级</p>
+              <p>空气湿度：{liveWeather.humidity}</p>
+              <p>发布时间：{liveWeather.reportTime}</p>
+            </div>
+          )}
+          {forecastWeather && (
+            <div className="forecast-weather">
+              <h4>天气预报</h4>
+              {forecastWeather.forecasts.map((dayWeather: any, index: number) => (
+                <p key={index}>{dayWeather.date} <span className="weather">{dayWeather.dayWeather}</span> {dayWeather.nightTemp}~{dayWeather.dayTemp}℃</p>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="addressListContainer">
           <select onChange={(e) => setRouteType(e.target.value)} value={routeType}>
             <option value="Driving">驾车</option>
             <option value="Walking">步行</option>
@@ -280,6 +292,7 @@ const MapComponent: React.FC = () => {
         </div>
         <div className="right" id="panel"></div>
       </div>
+      <div className="mapContainer" id="mapContainer"></div>
     </div>
   );
 };
