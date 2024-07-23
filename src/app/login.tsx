@@ -8,6 +8,7 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
   const [loginPassword, setLoginPassword] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -25,12 +26,26 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
     setPasswordVisibility(!passwordVisibility);
   };
 
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handleEmailChange = (email: string) => {
+    setEmailError(validateEmail(email) ? '' : '请输入有效的电子邮箱地址');
+  };
+
   const handleLogin = () => {
     if (!loginEmail || !loginPassword) {
       alert('请输入您的邮箱和密码');
       return;
     }
-  
+
+    if (!validateEmail(loginEmail)) {
+      alert('请输入有效的电子邮箱地址');
+      return;
+    }
+
     fetch('http://127.0.0.1:5000/login/login', {
       method: 'POST',
       headers: {
@@ -55,11 +70,16 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
         console.error('Error:', error);
         alert('登录过程中发生错误');
       });
-  };  
+  };
 
   const handleRegister = () => {
     if (!registerEmail || !registerPassword) {
       alert('请输入您的邮箱和密码');
+      return;
+    }
+
+    if (!validateEmail(registerEmail)) {
+      alert('请输入有效的电子邮箱地址');
       return;
     }
 
@@ -100,8 +120,12 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
               id="loginEmail" 
               placeholder="请输入您的邮箱或电话号码" 
               value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
+              onChange={(e) => {
+                setLoginEmail(e.target.value);
+                handleEmailChange(e.target.value);
+              }}
             />
+            {emailError && <span className="error">{emailError}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="loginPassword">密码</label>
@@ -138,14 +162,18 @@ const LoginForm: React.FC<{ state: boolean }> = ({ state }) => {
       ) : (
         <div id="registerForm">
           <div className="form-group">
-            <label htmlFor="registerEmail">电子邮箱地址或电话号码</label>
+            <label htmlFor="registerEmail">电子邮箱地址</label>
             <input 
               type="text" 
               id="registerEmail" 
-              placeholder="请输入您的邮箱或电话号码" 
+              placeholder="请输入您的邮箱" 
               value={registerEmail}
-              onChange={(e) => setRegisterEmail(e.target.value)}
+              onChange={(e) => {
+                setRegisterEmail(e.target.value);
+                handleEmailChange(e.target.value);
+              }}
             />
+            {emailError && <span className="error">{emailError}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="registerPassword">密码</label>
