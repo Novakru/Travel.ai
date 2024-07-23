@@ -57,11 +57,11 @@ const MapComponent: React.FC = () => {
   useEffect(() => {
     const loadMapScripts = () => {
       const script = document.createElement('script');
-      script.src = 'https://webapi.amap.com/maps?v=2.0&key=12d540f479e0d7e32221eb00e0cd15a7&plugin=AMap.Driving,AMap.Walking,AMap.Riding,AMap.Transfer,AMap.Weather,AMap.Geocoder,AMap.ControlBar,AMap.ToolBar';
+      script.src = 'https://webapi.amap.com/maps?v=2.0&key=5c59c24345b887271ff5578bacc4c4d1&plugin=AMap.Driving,AMap.Walking,AMap.Riding,AMap.Transfer,AMap.Weather,AMap.Geocoder,AMap.ControlBar,AMap.ToolBar';
       script.async = true;
       script.onload = () => {
         window._AMapSecurityConfig = {
-          securityJsCode: 'a1c7186f1d6c1e4366ebd69a3baec0ee',
+          securityJsCode: '78a617fc9d8d6b1c8685af066bec7470',
         };
         initMap();
       };
