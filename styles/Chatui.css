@@ -1,7 +1,7 @@
 .chatui-container {
     display: flex;
     flex-direction: column;
-    height: 1200px;
+    height: 100%;
     width: 100%; 
     max-width: 2000px; /* 设置最大宽度 */
     border: 2px solid #5a1a5f; /* 设置边框 */

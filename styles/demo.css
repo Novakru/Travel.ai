@@ -8,7 +8,7 @@ body, html {
 #root {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    max-height: 100vh;
 }
 
 .background-container {
@@ -64,6 +64,8 @@ body, html {
 
 .sidebar {
     width: 20%;
+    height: 80vh; /* 固定高度 */
+    overflow-y: auto; /* 启用垂直滚动条 */
     background-color: #f4f4f4;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
