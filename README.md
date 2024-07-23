@@ -1,15 +1,29 @@
 ## 项目启动
 
-如果电脑上安装了nodejs,那么执行如下命令就可以热启动网页。
+**请在final分支下运行！！！**
 
+- 项目文件夹Travel.ai
 ```bash
 npm install yarn
-yarn install 
+yarn install
+yarn add @chakra-ui/react @emotion/react @emotion/styled framer-motion （may be needed）
 npm run dev
 ```
 - 在自己电脑的端口可以渲染出网页的具体内容，可能是类似 [http://localhost:3000](http://localhost:3000) 这样的页面
 - You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 - This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+- 项目文件夹Travel.ai\backend
+```
+pip install [package needed]
+python main.py
+```
+
+- 项目文件夹Travel.ai\langserve
+```
+pip install [package needed]
+python server.py
+```
 
 ## 代码提交注意事项
 1. 代码统一提交到dev分支，检查无误后，然后再merge到master分支  
