@@ -51,7 +51,6 @@ const Chatui: React.FC<{ recordId: string }> = ({ recordId }) => {
   const [historyString, setHistoryString] = useState("");
 
   const appendStepper = async (plan) => {
-    setTyping(true);
     const chain = new RemoteRunnable({
       url: `http://127.0.0.1:8000/chain/tagging`,
     });
@@ -79,36 +78,40 @@ const Chatui: React.FC<{ recordId: string }> = ({ recordId }) => {
         console.error('Error sending data:', error);
       }
 
-      Object.keys(itinerary).forEach((day, dayIndex) => {
-        const steps = [];
-        const activities = itinerary[day];
-        Object.keys(activities).forEach(time => {
-          const timeActivities = activities[time];
-          if (Array.isArray(timeActivities)) {
-            timeActivities.forEach(activity => {
-              steps.push({
-                title: activity.时间,
-                desc: activity.地点
+      if (islist) {
+        setTyping(true);
+        Object.keys(itinerary).forEach((day, dayIndex) => {
+          const steps = [];
+          const activities = itinerary[day];
+          Object.keys(activities).forEach(time => {
+            const timeActivities = activities[time];
+            if (Array.isArray(timeActivities)) {
+              timeActivities.forEach(activity => {
+                steps.push({
+                  title: activity.时间,
+                  desc: activity.地点
+                });
               });
-            });
-          }
-        });
+            }
+          });
 
-        appendMsg({
-          type: "text",
-          content: { text: `开启第 ${dayIndex + 1}天的旅程吧！😙` },
-          position: "left",
-          user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
-        });
+          appendMsg({
+            type: "text",
+            content: { text: `开启第 ${dayIndex + 1}天的旅程吧！😙` },
+            position: "left",
+            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          });
 
-        appendMsg({
-          type: "stepper",
-          content: { steps },
-          position: "left",
-          user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          appendMsg({
+            type: "stepper",
+            content: { steps },
+            position: "left",
+            user: { avatar: "https://th.bing.com/th/id/OIP.T6WSFFONzxp1SsgBPAw-QwAAAA?rs=1&pid=ImgDetMain" },
+          });
         });
-      });
-      setTyping(false);
+        islist = false;
+        setTyping(false);
+      }
     } catch (error) {
       console.error("Error invoking chain:", error);
     }
@@ -313,10 +316,7 @@ const Chatui: React.FC<{ recordId: string }> = ({ recordId }) => {
                 console.error('Error storing message:', error);
               }
 
-              if(islist){
-                appendStepper(filteredContent);
-                islist = false;
-              }
+              appendStepper(filteredContent);
 
               return;
             }

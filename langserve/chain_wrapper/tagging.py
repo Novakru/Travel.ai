@@ -9,7 +9,6 @@ load_dotenv(dotenv_path)
 
 # 检查API密钥是否已加载
 api_key = os.environ.get("ZHIPUAI_KEY")
-print(1000000000,api_key)
 tagging_prompt = ChatPromptTemplate.from_template("""
 请根据下面的文本，提取并补充旅游行程的详细信息，包括每个时间段的地点和时间安排。第一天早上的第一个地址必须返回目标城市名称！比如北京、上海等，不要返回其他地点！输出应按照以下格式：
 
