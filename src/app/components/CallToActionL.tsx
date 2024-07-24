@@ -11,7 +11,7 @@ const CallToActionR = ({
       className="flex flex-col md:flex-row-reverse items-center justify-between bg-cover bg-center p-8" // Center horizontally
       style={{ backgroundImage: "url('/img/background.png')" }}
     >
-      <div className="md:w-1/2 flex justify-center"> {/* Center video */}
+      <div className="md:w-1/2 flex justify-center"> {/* Center */}
         <video
           src={mediaSrc}
           width={720}
