@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CallToActionR = ({
-  mediaSrc = '/video/testvideo.mp4', // Default video file path
+  mediaSrc = '/video/video02.mp4', // Default video file path
   title = '高德地图向导',
   content = '结合高德地图的最新API，与CHAT-UI界面中的旅行地点推送相结合，实现在同一张页面上显示，旅行时期每一天的气温和天气情况，多种交通方式切换，为您的出行保驾护航。',
   buttonText = 'Explore our Trip Genius'
