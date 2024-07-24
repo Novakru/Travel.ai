@@ -2,9 +2,9 @@ import React from 'react';
 
 const CallToActionR = ({
   mediaSrc = '/video/testvideo.mp4', // Default video file path
-  title = 'Erase any background',
-  content = 'Edit photos quickly and accurately without any effort. Photoroom simplifies your image, maintaining focus on the foreground and is twice as accurate as other apps.',
-  buttonText = 'Explore background removal'
+  title = '高德地图向导',
+  content = '结合高德地图的最新API，与CHAT-UI界面中的旅行地点推送相结合，实现在同一张页面上显示，旅行时期每一天的气温和天气情况，多种交通方式切换，为您的出行保驾护航。',
+  buttonText = 'Explore our Trip Genius'
 }) => {
   return (
     <div

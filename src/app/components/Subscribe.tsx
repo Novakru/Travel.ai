@@ -8,14 +8,14 @@ const Subscribe = () => {
             style={{ backgroundImage: "url('/img/background.png')" }}
         >
             <section className="relative p-4 md:p-8 rounded-lg rounded-tl-3xl flex flex-col gap-10 items-center justify-center bg-gray-100 h-[300px] z-10">
-                <p className="text-xl md:text-3xl font-bold text-litegrey w-full md:w-[75%] text-center relative z-10" data-aos="fade-down">Subscribe to get information, latest news and other interesting offers about Jadoo</p>
+                <p className="text-xl md:text-3xl font-bold text-litegrey w-full md:w-[75%] text-center relative z-10" data-aos="fade-down">Here to get information, latest news and other interesting offers about our Trip Genius </p>
 
                 <div className="flex items-center justify-center gap-2 w-full relative z-10" data-aos="fade-down">
                     <label htmlFor="" className="relative w-full md:w-[50%]">
                         <input type="text" placeholder="Your email" className="relative border-none outline-none bg-white rounded-lg py-3 pl-12 pr-4 w-full text-[15px] font-normal" />
                         <IoMailOutline className="absolute text-litedark text-3xl top-2 left-2" />
                     </label>
-                    <button className="bg-[#FF7D68] text-[15px] py-3 px-5 text-white font-medium rounded-lg">Subscribe</button>
+                    <button className="bg-[#FF7D68] text-[15px] py-3 px-5 text-white font-medium rounded-lg">Start</button>
                 </div>
 
                 <Image src="/img/ring-bottom.png" width={300} height={300} alt="img" className="absolute bottom-0 left-[-60px]" />

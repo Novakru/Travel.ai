@@ -2,9 +2,9 @@ import React from 'react';
 
 const CallToActionR = ({
   mediaSrc = '/video/testvideo.mp4', // Default video file path
-  title = 'Erase any background',
-  content = 'Edit photos quickly and accurately without any effort. Photoroom simplifies your image, maintaining focus on the foreground and is twice as accurate as other apps.',
-  buttonText = 'Explore background removal'
+  title = 'CHAT-UI',
+  content = '采用对话式的交互方式，通过新增加卡片ui,行程日期规划卡片，增强用户的体验感和获得感，同时综合利用各种平台与信息渠道，提供例如火车票售价等贴心服务，确保一站式解决出行烦恼。',
+  buttonText = 'Explore our Trip Genius '
 }) => {
   return (
     <div
